@@ -34,7 +34,7 @@ spigot {
     authors = [project.property("author")]
     apiVersion = project.property("apiVersion")
     load = POSTWORLD
-    depends = ['Vault', 'SkinsRestorer', 'Magic', 'EliteMobs', 'Slimefun', 'Essentials', 'ProjectKorra','mcMMO']
+    depends = ['Essentials', 'SkinsRestorer', 'Magic', 'EliteMobs', 'Slimefun', 'ProjectKorra','mcMMO']
     excludeLibraries = ['*']
 }
 
@@ -73,8 +73,9 @@ dependencies {
     shadow "co.aikar:acf-paper:0.5.1-SNAPSHOT"
     // Vault (https://github.com/MilkBowl/VaultAPI) for economy, permissions and chat API
     // this dependency needs to be present at runtime, meaning Vault.jar needs to be in your plugins folder
-    implementation vaultAll()
-    implementation("com.github.MilkBowl:VaultAPI:1.7")
+    compileOnly("com.github.MilkBowl:VaultAPI:1.7") {
+        exclude group: 'org.bukkit', module: 'bukkit'
+    }
     implementation("javax.json.bind:javax.json.bind-api:1.0")
     implementation("org.eclipse:yasson:1.0")
     implementation("org.glassfish:javax.json:1.1")
