@@ -5,6 +5,10 @@ on:
       - main
     paths-ignore:
       - 'frontend/**'
+
+env:
+  COPY_JARFILE_TO: '/Minecraft/Hardcore/plugins/ /Minecraft/DDM/plugins/'
+
 jobs:
   build:
 
@@ -40,6 +44,7 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
+          name: mc-plugin
           path: "**/build/libs"
 
   test:
@@ -84,6 +89,51 @@ jobs:
         if: always()
         with:
           files: "**/build/test-results/**/*.xml"
+
+  deploy:
+    needs: [build, test]
+    if: github.ref == 'refs/heads/master' || 'refs/heads/beta' || github.ref == 'refs/heads/alpha'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/download-artifact@v3
+        name: Download artifact
+        with:
+          name: mc-plugin
+          path: ./
+
+      - name: deploy jar file
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: rm  /home/${{ secrets.USERNAME }}/*.jar
+
+      - name: copy file via ssh
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          source: build/libs/*
+          target: /home/${{ secrets.USERNAME }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          password: ${{ secrets.PASSWORD }}
+          debug: true
+          strip_components: 2
+          overwrite: true
+
+      - name: deploy jar file
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: rm  /home/${{ secrets.USERNAME }}/*-*-*.jar && echo "${{env.COPY_JARFILE_TO}}" | xargs -n 1 cp -v /home/${{ secrets.USERNAME }}/*.jar
+
 
   release:
     needs: [build, test]
