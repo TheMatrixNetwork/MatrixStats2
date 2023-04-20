@@ -33,8 +33,7 @@ spigot {
     name = project.property("pluginName")
     authors = [project.property("author")]
     apiVersion = project.property("apiVersion")
-    load = STARTUP
-    loadBefore = ['Vault', 'SkinsRestorer', 'Magic', 'EliteMobs', 'Slimefun', 'Essentials', 'ProjectKorra','mcMMO']
+    load = POSTWORLD
     depends = ['Vault', 'SkinsRestorer', 'Magic', 'EliteMobs', 'Slimefun', 'Essentials', 'ProjectKorra','mcMMO']
     excludeLibraries = ['*']
 }
