@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {StatsService, Token} from "../stats.service";
 import {HttpErrorResponse} from "@angular/common/http";
-import { Cookie } from 'ng2-cookies/ng2-cookies';
 import {Router} from "@angular/router";
 import {AuthService} from "../auth.service";
 
@@ -12,13 +11,13 @@ import {AuthService} from "../auth.service";
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
-  formBuilder: FormBuilder;
+  loginForm: UntypedFormGroup;
+  formBuilder: UntypedFormBuilder;
   _statsService: StatsService;
   _authService: AuthService;
   failedLogin: boolean;
 
-  constructor(formBuilder: FormBuilder, statsService: StatsService, authService: AuthService, private router: Router) {
+  constructor(formBuilder: UntypedFormBuilder, statsService: StatsService, authService: AuthService, private router: Router) {
     this.formBuilder = formBuilder;
     this._statsService = statsService;
     this._authService = authService;

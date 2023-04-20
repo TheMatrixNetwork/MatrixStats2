@@ -17,6 +17,7 @@ import { LoginComponent } from './login/login.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import { HomeComponent } from './home/home.component';
+import {CookieModule} from "ngx-cookie";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { HomeComponent } from './home/home.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    CookieModule.withOptions(),
     MatSidenavModule,
     BrowserAnimationsModule,
     AppRoutingModule,

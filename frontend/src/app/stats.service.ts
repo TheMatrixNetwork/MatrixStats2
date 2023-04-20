@@ -51,12 +51,17 @@ export class StatsService {
   }
 
   public getSkinName(): any {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization':  this._authService.getToken(),
-      })
-    };
+    if(this._authService.getToken()) {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Authorization':  this._authService.getToken()!,
+        })
+      };
 
-    return this.http.get<any>(environment.url + `/api/skin/`, httpOptions);
+      return this.http.get<any>(environment.url + `/api/skin/`, httpOptions);
+    }
+    else {
+      return this.http.get<any>(environment.url + `/api/skin/`);
+    }
   }
 }

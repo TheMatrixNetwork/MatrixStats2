@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Cookie } from 'ng2-cookies/ng2-cookies';
 import {Account, Token} from "./stats.service";
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {environment} from "../environments/environment";
+import {CookieService} from "ngx-cookie";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private _cookieService: CookieService) { }
 
   public async login(username: string, password: string): Promise<boolean> {
     return new Promise<boolean>(res => {
@@ -18,7 +19,7 @@ export class AuthService {
         password
       }).subscribe(
         (data: Token) => {
-          Cookie.set("token", data.token.toString(), 1);
+          this._cookieService.put("token", data.token.toString());
           res(true);
         },
         (error:Error) =>  {
@@ -39,11 +40,11 @@ export class AuthService {
   }
 
   public getToken() {
-    return Cookie.get("token");
+    return this._cookieService.get("token");
   }
 
   public isLoggedIn(): boolean {
-    let str = Cookie.get("token");
+    let str = this._cookieService.get("token");
     return str != null;
   }
 }
