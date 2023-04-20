@@ -34,7 +34,7 @@ spigot {
     authors = [project.property("author")]
     apiVersion = project.property("apiVersion")
     load = STARTUP
-    depends = ['Vault', 'SkinsRestorer', 'Magic', 'EliteMobs', 'Slimefun', 'ProjectKorra','mcMMO']
+    depends = ['Vault', 'SkinsRestorer', 'Magic', 'EliteMobs', 'Slimefun', 'EssentialsX', 'ProjectKorra','mcMMO']
     excludeLibraries = ['*']
 }
 
@@ -94,6 +94,7 @@ dependencies {
     implementation(files("libs/EliteMobs.jar"))
     implementation(files("libs/Magic.jar"))
     implementation(files("libs/SkinsRestorer.jar"))
+    implementation(files("libs/EssentialsX.jar"))
 
 
     // Test dependencies
