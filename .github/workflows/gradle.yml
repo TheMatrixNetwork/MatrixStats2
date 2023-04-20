@@ -7,7 +7,7 @@ on:
       - 'frontend/**'
 
 env:
-  COPY_JARFILE_TO: '/Minecraft/Hardcore/plugins/ /Minecraft/DDM/plugins/'
+  COPY_JARFILE_TO: '/Minecraft/Hardcore/plugins/ /Minecraft/Classic/plugins/'
 
 jobs:
   build:
