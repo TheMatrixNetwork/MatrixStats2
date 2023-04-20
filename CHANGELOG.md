@@ -1,3 +1,18 @@
+# [1.3.0](https://github.com/TheMatrixNetwork/MatrixStats2/compare/v1.2.0...v1.3.0) (2023-04-20)
+
+
+### Bug Fixes
+
+* fix github action frontend deployment ([7e7604f](https://github.com/TheMatrixNetwork/MatrixStats2/commit/7e7604fb5567eb0e9daa9e52abd2dee703a2581d))
+* fix github action frontend deployment ([b280f69](https://github.com/TheMatrixNetwork/MatrixStats2/commit/b280f69518ff1264f2200627a8ab2265984aeace))
+* reset angular cache ([f90327b](https://github.com/TheMatrixNetwork/MatrixStats2/commit/f90327b6d4d2c835af2486c4c8da8c7c7f77f34e))
+* run github action only when files changed ([f33b85e](https://github.com/TheMatrixNetwork/MatrixStats2/commit/f33b85ebe15e5dde7cc65f2befcb6e3d451f9188))
+
+
+### Features
+
+* deploy jar to mc server ([2336e34](https://github.com/TheMatrixNetwork/MatrixStats2/commit/2336e3421159d050174f4eebae31dc37b0223923))
+
 ## [1.2.1](https://github.com/TheMatrixNetwork/MatrixStats2/compare/v1.2.0...v1.2.1) (2023-04-20)
 
 
