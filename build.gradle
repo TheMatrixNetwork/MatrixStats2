@@ -75,6 +75,28 @@ dependencies {
     // Vault (https://github.com/MilkBowl/VaultAPI) for economy, permissions and chat API
     // this dependency needs to be present at runtime, meaning Vault.jar needs to be in your plugins folder
     implementation vaultAll()
+    implementation("com.github.MilkBowl:VaultAPI:1.7")
+    implementation("javax.json.bind:javax.json.bind-api:1.0")
+    implementation("org.eclipse:yasson:1.0")
+    implementation("org.glassfish:javax.json:1.1")
+    implementation("org.spigotmc:plugin-annotations:1.2.2-SNAPSHOT")
+    implementation("org.jboss.resteasy:resteasy-jaxrs:3.1.2.Final")
+    implementation("org.glassfish.jersey.containers:jersey-container-jdk-http:2.25")
+    implementation("org.jboss.resteasy:resteasy-jaxb-provider:3.1.2.Final")
+    implementation("org.jboss.resteasy:resteasy-servlet-initializer:3.1.2.Final")
+    implementation("org.hibernate:hibernate-core:5.3.23.Final")
+    implementation("mysql:mysql-connector-java:8.0.27")
+    implementation("com.google.inject:guice:4.0")
+    implementation("net.skinsrestorer:skinsrestorer-api:14.2.10")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.10.0")
+    implementation("fr.xephi:authme:5.6.0-SNAPSHOT")
+    implementation("com.gmail.nossr50.mcMMO:mcMMO:2.1.219-SNAPSHOT")
+    implementation("com.github.Slimefun:Slimefun4:RC-32")
+    implementation("com.github.ProjectKorra:ProjectKorra:1.11.1")
+
+    implementation(files("libs/EliteMobs.jar"))
+    implementation(files("libs/Magic.jar"))
+
 
     // Test dependencies
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
