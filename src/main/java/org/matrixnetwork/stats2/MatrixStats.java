@@ -28,7 +28,6 @@ import static com.magmaguy.elitemobs.adventurersguild.GuildRank.getGuildPrestige
 public class MatrixStats extends JavaPlugin{
 	
 	private static MatrixStats plugin;
-	private static SkinsRestorerAPI skinsRestorerAPI;
 	private HttpServer server;
 	private static Economy econ;
 
@@ -37,7 +36,7 @@ public class MatrixStats extends JavaPlugin{
 	}
 
 	public static SkinsRestorerAPI getSkinsRestorerAPI() {
-		return skinsRestorerAPI;
+		return SkinsRestorerAPI.getApi();
 	}
 
 	@Override
@@ -53,13 +52,6 @@ public class MatrixStats extends JavaPlugin{
 			getServer().getPluginManager().disablePlugin(this);
 			return;
 		}
-
-		BukkitTask r = new BukkitRunnable() {
-			@Override
-			public void run() {
-				skinsRestorerAPI = SkinsRestorerAPI.getApi();
-			}
-		}.runTask(this);
 
 		StatsHandler.init();
 
