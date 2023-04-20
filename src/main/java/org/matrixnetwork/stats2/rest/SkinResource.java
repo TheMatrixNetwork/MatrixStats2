@@ -22,13 +22,11 @@ public class SkinResource {
             return Response.status(400).build();
         }
 
-        String uuid = Auth.getInstance().verifyToken(tokenStr);
+        String username = Auth.getInstance().verifyToken(tokenStr);
 
-        if(uuid != null) {
+        if(username != null) {
             JSONObject retObj = new JSONObject();
-            retObj.put("skin", MatrixStats.getSkinsRestorerAPI().getSkinName(
-                    MatrixStats.getPlugin().getServer().getOfflinePlayer(UUID.fromString(uuid)).getName()
-            ));
+            retObj.put("skin", MatrixStats.getSkinsRestorerAPI().getSkinName(username));
             return Response.ok(retObj.toJSONString()).build();
         }
         else {
