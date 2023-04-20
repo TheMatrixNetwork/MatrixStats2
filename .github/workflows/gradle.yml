@@ -103,14 +103,14 @@ jobs:
           name: mc-plugin
           path: ./
 
-      - name: deploy jar file
+      - name: cleanup files
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          script: rm  /home/${{ secrets.USERNAME }}/*.jar
+          script: rm  /home/${{ secrets.USERNAME }}/*.jar && echo "${{env.COPY_JARFILE_TO}}" | xargs printf -- '-f %sMatrixStats*.jar' | xargs -n 1 rm -v
 
       - name: copy file via ssh
         uses: appleboy/scp-action@v0.1.4
