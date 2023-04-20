@@ -110,7 +110,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          script: rm  /home/${{ secrets.USERNAME }}/*.jar && echo "${{env.COPY_JARFILE_TO}}" | xargs printf -- '-f %sMatrixStats*.jar' | xargs -n 1 rm -v
+          script: rm -f /home/${{ secrets.USERNAME }}/*.jar; echo "${{env.COPY_JARFILE_TO}}" | xargs printf -- '-f %sMatrixStats*.jar' | xargs -n 1 rm -f -v
 
       - name: copy file via ssh
         uses: appleboy/scp-action@v0.1.4
@@ -132,7 +132,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          script: rm  /home/${{ secrets.USERNAME }}/*-*-*.jar && echo "${{env.COPY_JARFILE_TO}}" | xargs -n 1 cp -v /home/${{ secrets.USERNAME }}/*.jar
+          script: rm -f /home/${{ secrets.USERNAME }}/*-*-*.jar && echo "${{env.COPY_JARFILE_TO}}" | xargs -n 1 cp -v /home/${{ secrets.USERNAME }}/*.jar
 
 
   release:
