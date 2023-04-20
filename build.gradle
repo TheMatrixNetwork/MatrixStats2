@@ -34,7 +34,7 @@ spigot {
     authors = [project.property("author")]
     apiVersion = project.property("apiVersion")
     load = POSTWORLD
-    depends = ['Essentials', 'SkinsRestorer', 'Magic', 'EliteMobs', 'Slimefun', 'ProjectKorra','mcMMO']
+    depends = ['Essentials', 'SkinsRestorer', 'Magic', 'EliteMobs', 'Slimefun', 'ProjectKorra','mcMMO', 'AuthMe']
     excludeLibraries = ['*']
 }
 
@@ -87,10 +87,10 @@ dependencies {
     implementation("mysql:mysql-connector-java:8.0.27")
     implementation("com.google.inject:guice:4.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.10.0")
-    implementation("fr.xephi:authme:5.6.0-SNAPSHOT")
-    implementation("com.gmail.nossr50.mcMMO:mcMMO:2.1.219-SNAPSHOT")
-    implementation("com.github.Slimefun:Slimefun4:RC-32")
-    implementation("com.github.ProjectKorra:ProjectKorra:1.11.1")
+    compileOnly("fr.xephi:authme:5.6.0-SNAPSHOT")
+    compileOnly("com.gmail.nossr50.mcMMO:mcMMO:2.1.219-SNAPSHOT")
+    compileOnly("com.github.Slimefun:Slimefun4:RC-32")
+    compileOnly("com.github.ProjectKorra:ProjectKorra:1.11.1")
 
     implementation(files("libs/EliteMobs.jar"))
     implementation(files("libs/Magic.jar"))
