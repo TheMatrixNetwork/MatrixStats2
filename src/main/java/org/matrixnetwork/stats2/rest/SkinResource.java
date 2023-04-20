@@ -18,6 +18,7 @@ public class SkinResource {
     @Produces(MediaType.APPLICATION_JSON)
     @GET
     public Response getSkin(@HeaderParam("Authorization") String tokenStr) {
+
         if(tokenStr == null) {
             return Response.status(400).build();
         }
@@ -26,7 +27,7 @@ public class SkinResource {
 
         if(username != null) {
             JSONObject retObj = new JSONObject();
-            retObj.put("skin", MatrixStats.getSkinsRestorerAPI().getSkinName(username));
+            retObj.put("skin", username);
             return Response.ok(retObj.toJSONString()).build();
         }
         else {
