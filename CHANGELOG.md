@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/TheMatrixNetwork/MatrixStats2/compare/v1.1.0...v1.2.0) (2023-04-20)
+
+
+### Features
+
+* update angular version ([6d04ac4](https://github.com/TheMatrixNetwork/MatrixStats2/commit/6d04ac4c29a43eed9ba11497a3b21e1171cce6f3))
+
 # [1.1.0](https://github.com/TheMatrixNetwork/MatrixStats2/compare/v1.0.0...v1.1.0) (2023-04-20)
 
 
