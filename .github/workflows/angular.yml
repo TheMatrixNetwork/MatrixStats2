@@ -2,6 +2,8 @@ name: Deploy angular
 
 on:
   push:
+    paths:
+      - 'frontend/**'
     branches:
       - main
 
