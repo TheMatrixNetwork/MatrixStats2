@@ -1,5 +1,8 @@
 package org.matrixnetwork.stats2.util;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.matrixnetwork.stats2.MatrixStats;
@@ -7,34 +10,32 @@ import org.matrixnetwork.stats2.entity.MatrixPlayer;
 import org.matrixnetwork.stats2.entity.Token;
 import org.matrixnetwork.stats2.manager.DataManager;
 
+import javax.crypto.spec.SecretKeySpec;
+import javax.persistence.criteria.CriteriaBuilder;
+import java.security.*;
+import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.UUID;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 public class Auth {
     private static Auth instance;
-    private HashMap<String, Token> tokenList;
-    private BukkitTask tokenInvalidator;
+    public long TOKEN_EXPIRATION_TIME = 60*5; // in seconds
 
-    private long INVALIDATOR_CHECK_DELAY = 20*60; // in ticks
-    public long TOKEN_EXPIRATION_TIME = 10*60; // in seconds
+    private PublicKey publicKey;
+    private PrivateKey privateKey;
 
     private Auth() {
-        tokenList = new HashMap<>();
+        System.out.println("generating keys");
+        Map<String, Object> rsaKeys = null;
 
-        tokenInvalidator = new BukkitRunnable() {
-            @Override
-            public void run() {
-                LocalDateTime expiredTokensDate = LocalDateTime.now().minusSeconds(TOKEN_EXPIRATION_TIME);
-                HashMap<String, Token> tlClone = (HashMap<String, Token>) tokenList.clone();
-
-                for(String token : tlClone.keySet()) {
-                    if(tokenList.get(token).getLastUsed().compareTo(expiredTokensDate) < 1) {
-                        tokenList.remove(token);
-                    }
-                }
-            }
-        }.runTaskTimerAsynchronously(MatrixStats.getPlugin(), INVALIDATOR_CHECK_DELAY, INVALIDATOR_CHECK_DELAY);
+        try {
+            rsaKeys = getRSAKeys();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        publicKey = (PublicKey) rsaKeys.get("public");
+        privateKey = (PrivateKey) rsaKeys.get("private");
     }
 
     public static Auth getInstance() {
@@ -45,30 +46,54 @@ public class Auth {
         return instance;
     }
 
-    /**
-     * Returns token needed for authentication
-     * @param username username
-     * @return token
-     */
     public String generateToken(String username) {
-        MatrixPlayer matrixPlayer = DataManager.getInstance().getMatrixPlayerByProperty("username", username);
+        String token = null;
+        try {
+            Map<String, Object> claims = new HashMap<String, Object>();
 
-        if(matrixPlayer == null)
-            return null;
+            // put your information into claim
+            claims.put("username", username);
 
-        String uuid = UUID.randomUUID().toString();
-        tokenList.put(uuid, new Token(LocalDateTime.now(), matrixPlayer));
-        return uuid;
-    }
+            Instant now = Instant.now();
 
-    public Token getToken(String token) {
-        if(tokenList.containsKey(token)) {
-            return tokenList.get(token);
+            token = Jwts.builder()
+                    .setClaims(claims)
+                    .setSubject(username)
+                    .setIssuedAt(Date.from(now))
+                    .setExpiration(Date.from(now.plusSeconds(TOKEN_EXPIRATION_TIME)))
+                    .signWith(privateKey)
+                    .compact();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return null;
+        return token;
     }
 
+    // verify and get claims using public key
 
+    public String verifyToken(String token) {
+        Claims claims;
+        try {
+            claims = Jwts.parserBuilder().setSigningKey(publicKey).build().parseClaimsJws(token).getBody();
+        } catch (Exception e) {
+            return null ;
+        }
 
+        return claims.getSubject();
+    }
+
+    private static Map<String, Object> getRSAKeys() throws Exception {
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+        keyPairGenerator.initialize(2048);
+        KeyPair keyPair = keyPairGenerator.generateKeyPair();
+        PrivateKey privateKey = keyPair.getPrivate();
+        PublicKey publicKey = keyPair.getPublic();
+        Map<String, Object> keys = new HashMap<String, Object>();
+        keys.put("private", privateKey);
+        keys.put("public", publicKey);
+        return keys;
+    }
 
 }
