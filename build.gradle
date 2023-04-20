@@ -92,10 +92,10 @@ dependencies {
     compileOnly("com.github.Slimefun:Slimefun4:RC-32")
     compileOnly("com.github.ProjectKorra:ProjectKorra:1.11.1")
 
-    implementation(files("libs/EliteMobs.jar"))
-    implementation(files("libs/Magic.jar"))
-    implementation(files("libs/SkinsRestorer.jar"))
-    implementation(files("libs/EssentialsX.jar"))
+    compileOnly(files("libs/EliteMobs.jar"))
+    compileOnly(files("libs/Magic.jar"))
+    compileOnly(files("libs/SkinsRestorer.jar"))
+    compileOnly(files("libs/EssentialsX.jar"))
 
 
     // Test dependencies
