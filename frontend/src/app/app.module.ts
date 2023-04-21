@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import {CookieModule} from "ngx-cookie";
 import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
+import {NgOptimizedImage} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
     AppRoutingModule,
     LayoutModule,
     ReactiveFormsModule,
+    NgOptimizedImage,
   ],
   exports: [
   ],

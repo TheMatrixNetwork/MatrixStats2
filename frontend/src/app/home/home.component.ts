@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
     this._statsService.getSkinName().subscribe((skin: any) => {
       console.log(skin.skin);
 
-      genSkin(skin.skin);
+      genSkin(skin.skin, 300, 500);
     });
   }
 

@@ -1,8 +1,12 @@
-function genSkin(skinName) {
+function genSkin(skinName, width, height) {
   var skinRender = new SkinRender({
     autoResize: true,
     render: {
       taa: true
+    },
+    canvas: {
+      width: width,
+      height: height
     },
     makeNonTransparentOpaque: false
   }, document.getElementById("skinContainer"));
