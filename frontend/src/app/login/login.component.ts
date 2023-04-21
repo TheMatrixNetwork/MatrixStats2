@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
+import {NgForm, UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {StatsService, Token} from "../stats.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
@@ -11,37 +11,30 @@ import {AuthService} from "../auth.service";
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit {
-  loginForm: UntypedFormGroup;
-  formBuilder: UntypedFormBuilder;
-  _statsService: StatsService;
-  _authService: AuthService;
   failedLogin: boolean;
+  username: string = "";
+  password: string = "";
 
-  constructor(formBuilder: UntypedFormBuilder, statsService: StatsService, authService: AuthService, private router: Router) {
-    this.formBuilder = formBuilder;
-    this._statsService = statsService;
-    this._authService = authService;
-    this.loginForm = this.formBuilder.group({
-      username: [null, Validators.required],
-      password: [null, Validators.required]
-    });
+  constructor(private formBuilder: UntypedFormBuilder,
+              private statsService: StatsService,
+              private authService: AuthService,
+              private router: Router) {
     this.failedLogin = false;
   }
 
   ngOnInit(): void {
-    if(this._authService.isLoggedIn()) {
+    if(this.authService.isLoggedIn()) {
       this.router.navigate(['home']);
     }
   }
 
-  async submit() {
-    if (!this.loginForm.valid) {
+  async submit(form: NgForm) {
+    if (!form.valid) {
       return;
     }
 
-    this._authService.login(this.loginForm.value.username,
-      this.loginForm.value.password).then(success => {
-      if(this._authService.isLoggedIn()) {
+    this.authService.login(this.username,this.password).then(success => {
+      if(this.authService.isLoggedIn()) {
         this.router.navigate(['home']);
       }
       else {
