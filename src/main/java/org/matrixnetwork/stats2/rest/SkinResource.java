@@ -1,5 +1,6 @@
 package org.matrixnetwork.stats2.rest;
 
+import net.skinsrestorer.api.SkinsRestorerAPI;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.matrixnetwork.stats2.MatrixStats;
@@ -25,12 +26,16 @@ public class SkinResource {
         String username = Auth.getInstance().verifyToken(tokenStr);
 
         if(username != null) {
-            MatrixStats.getPlugin().getLogger().info("Username: " + username);
-            JSONObject retObj = new JSONObject();
-            String skinName = MatrixStats.getSkinsRestorerAPI().getSkinName(username);
-            MatrixStats.getPlugin().getLogger().info("Skin: " + skinName);
-            retObj.put("skin", skinName == null ? username : skinName );
-            return Response.ok(retObj.toJSONString()).build();
+            try {
+                JSONObject retObj = new JSONObject();
+                String skinName = SkinsRestorerAPI.getApi().getSkinName(username);
+                retObj.put("skin", skinName == null ? username : skinName );
+                return Response.ok(retObj.toJSONString()).build();
+            } catch (Exception ex) {
+                MatrixStats.getPlugin().getLogger().info(ex.toString());
+                MatrixStats.getPlugin().getLogger().info(ex.getMessage());
+                return Response.noContent().build();
+            }
         }
         else {
             return Response.status(403).build();

@@ -35,10 +35,6 @@ public class MatrixStats extends JavaPlugin{
 		return econ;
 	}
 
-	public static SkinsRestorerAPI getSkinsRestorerAPI() {
-		return SkinsRestorerAPI.getApi();
-	}
-
 	@Override
 	public void onLoad() {
 		plugin = this;
