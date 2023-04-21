@@ -18,7 +18,6 @@ public class SkinResource {
     @Produces(MediaType.APPLICATION_JSON)
     @GET
     public Response getSkin(@HeaderParam("Authorization") String tokenStr) {
-
         if(tokenStr == null) {
             return Response.status(400).build();
         }
@@ -26,8 +25,11 @@ public class SkinResource {
         String username = Auth.getInstance().verifyToken(tokenStr);
 
         if(username != null) {
+            MatrixStats.getPlugin().getLogger().info("Username: " + username);
             JSONObject retObj = new JSONObject();
-            retObj.put("skin", username);
+            String skinName = MatrixStats.getSkinsRestorerAPI().getSkinName(username);
+            MatrixStats.getPlugin().getLogger().info("Skin: " + skinName);
+            retObj.put("skin", skinName == null ? username : skinName );
             return Response.ok(retObj.toJSONString()).build();
         }
         else {
