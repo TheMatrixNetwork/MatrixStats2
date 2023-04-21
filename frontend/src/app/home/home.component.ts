@@ -15,15 +15,10 @@ declare const genSkin: any;
 export class HomeComponent implements OnInit {
 
   constructor(private _authService: AuthService,
-              private _statsService: StatsService,
-              private router: Router) { }
+              private _statsService: StatsService) { }
 
 
   ngOnInit(): void {
-    if(!this._authService.isLoggedIn()) {
-      this.router.navigate(['login']);
-    }
-
     this._statsService.getSkinName().subscribe((skin: any) => {
       console.log(skin.skin);
 

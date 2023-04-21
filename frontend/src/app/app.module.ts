@@ -10,6 +10,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import {CookieModule} from "ngx-cookie";
+import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {CookieModule} from "ngx-cookie";
   ],
   exports: [
   ],
-  providers:[],
+  providers:[{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

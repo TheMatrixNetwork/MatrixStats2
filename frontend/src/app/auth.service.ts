@@ -3,6 +3,7 @@ import {Account, Token} from "./stats.service";
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {environment} from "../environments/environment";
 import {CookieService} from "ngx-cookie";
+import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import {CookieService} from "ngx-cookie";
 export class AuthService {
 
   constructor(private http: HttpClient,
-              private _cookieService: CookieService) { }
+              private _cookieService: CookieService,
+              private jwtHelper: JwtHelperService) { }
 
   public async login(username: string, password: string): Promise<boolean> {
     return new Promise<boolean>(res => {
@@ -44,7 +46,7 @@ export class AuthService {
   }
 
   public isLoggedIn(): boolean {
-    let str = this._cookieService.get("token");
-    return str != null;
+    let token = this._cookieService.get("token");
+    return token != null && !this.jwtHelper.isTokenExpired(token);
   }
 }
