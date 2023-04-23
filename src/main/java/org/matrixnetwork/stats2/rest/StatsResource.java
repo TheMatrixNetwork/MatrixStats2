@@ -17,7 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.stream.Collectors;
 
-@Path("/org/matrixnetwork/stats2")
+@Path("stats")
 public class StatsResource {
     private JSONParser parser = new JSONParser();
 

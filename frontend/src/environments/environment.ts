@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  url: 'https://api.matrixnetwork.org',
+  url: 'http://localhost:8081',
 };
 
 /*
