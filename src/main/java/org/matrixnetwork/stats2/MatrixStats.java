@@ -1,9 +1,7 @@
 package org.matrixnetwork.stats2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.magmaguy.elitemobs.playerdata.ElitePlayerInventory;
 import com.sun.net.httpserver.HttpServer;
-import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import net.milkbowl.vault.economy.Economy;
 import net.skinsrestorer.api.SkinsRestorerAPI;
 import org.bukkit.Bukkit;
@@ -25,9 +23,6 @@ import org.matrixnetwork.stats2.util.JacksonFeature;
 
 import java.net.URI;
 import java.util.List;
-
-import static com.magmaguy.elitemobs.adventurersguild.GuildRank.getActiveGuildRank;
-import static com.magmaguy.elitemobs.adventurersguild.GuildRank.getGuildPrestigeRank;
 
 public class MatrixStats extends JavaPlugin{
 	
@@ -99,54 +94,4 @@ public class MatrixStats extends JavaPlugin{
 		return plugin;
 	}
 
-//	private int getLevel(PlayerProfile mcMMOProfile, PrimarySkillType skillType) {
-//		int skillLevel = mcMMOProfile.getSkillLevel(skillType);
-//		return Math.min(skillLevel, MAX_LEVEL);
-//	}
-
-	public static int getGuildRank(String playerName) {
-		Player player = Bukkit.getPlayer(playerName);
-		if (player == null) {
-			return 0;
-		} else {
-			// Get the player's guild level from elite mobs
-			return getActiveGuildRank(player, true);
-		}
-	}
-
-	public static int getElitePrestige(String playerName) {
-		Player player = Bukkit.getPlayer(playerName);
-		if (player == null) {
-			return 0;
-		} else {
-			// Get the player's elite prestige from elite mobs
-			return getGuildPrestigeRank(player, true);
-		}
-	}
-
-	public static int getThreatTier(String playerName) {
-		Player player = Bukkit.getPlayer(playerName);
-		if (player == null) {
-			return 0;
-		} else {
-			return ElitePlayerInventory.playerInventories.get(player.getUniqueId()).getFullPlayerTier(true);
-		}
-	}
-
-	public static int getSlimefunLevel(String playerName) {
-		Player player = Bukkit.getPlayer(playerName);
-		if (player == null) {
-			return 0;
-		} else {
-			try {
-				io.github.thebusybiscuit.slimefun4.api.player.PlayerProfile slimefunProfile = Slimefun.getRegistry().getPlayerProfiles().get(player.getUniqueId());
-				List<String> titles = Slimefun.getRegistry().getResearchRanks();
-				float fraction = (float) slimefunProfile.getResearches().size() / Slimefun.getRegistry().getResearches().size();
-				return (int) (fraction * (titles.size() - 1));
-			} catch(NullPointerException e){
-				return 0;
-			}
-
-		}
-	}
 }

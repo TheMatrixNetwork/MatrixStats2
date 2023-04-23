@@ -16,10 +16,15 @@ public record PlayerStatsDTO(
         String lastDamageCause,
         int remainingAir,
         String timeStamp,
-        int guildRank,
+        String guildRankName,
         int threatTier,
-        int sfLevel,
-        int prestige
+        String sfTitle,
+        int mcmmoPower,
+        String mageRank,
+        String skillClass,
+        int skillLevel,
+        String element,
+        int matrik
 ) {
     public static PlayerStatsDTO from(PlayerStats stats) {
         return new PlayerStatsDTO(
@@ -34,10 +39,15 @@ public record PlayerStatsDTO(
                 stats.getLastDamageCause(),
                 stats.getRemainingAir(),
                 stats.getTimeStamp().format(DateTimeFormatter.ofPattern("yyyy-MM-dd@HH:mm")),
-                stats.getGuildRank(),
+                stats.getGuildRankName(),
                 stats.getThreatTier(),
-                stats.getSfLevel(),
-                stats.getPrestige()
+                stats.getSfTitle(),
+                stats.getMcmmoPower(),
+                stats.getMageRank(),
+                stats.getSkillClass(),
+                stats.getSkillLevel(),
+                stats.getElement(),
+                stats.getMatrik()
         );
     }
 }

@@ -1,7 +1,6 @@
 package org.matrixnetwork.stats2.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.json.simple.JSONObject;
 
 import javax.persistence.*;
@@ -25,10 +24,16 @@ public class PlayerStats {
     private String lastDamageCause;
     private int remainingAir;
     private LocalDateTime timeStamp;
-    private int guildRank;
+    private String guildRankName;
     private int threatTier;
-    private int sfLevel;
-    private int prestige;
+    private String sfTitle;
+    private int mcmmoPower;
+    private String mageRank;
+    private String skillClass;
+    private int skillLevel;
+    private String element;
+    private int matrik;
+
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = MatrixPlayer.class)
     private MatrixPlayer matrixPlayer;
@@ -44,10 +49,15 @@ public class PlayerStats {
                        String lastDamageCause,
                        int remainingAir,
                        LocalDateTime timeStamp,
-                       int guildRank,
+                       String guildRankName,
                        int threatTier,
-                       int sfLevel,
-                       int prestige,
+                       String sfTitle,
+                       int mcmmoPower,
+                       String mageRank,
+                       String skillClass,
+                       int skillLevel,
+                       String element,
+                       int matrik,
                        MatrixPlayer matrixPlayer) {
         this.exp = exp;
         this.foodLevel = foodLevel;
@@ -60,10 +70,15 @@ public class PlayerStats {
         this.lastDamageCause = lastDamageCause;
         this.remainingAir = remainingAir;
         this.timeStamp = timeStamp;
-        this.setGuildRank(guildRank);
+        this.setGuildRankName(guildRankName);
         this.setThreatTier(threatTier);
-        this.setSfLevel(sfLevel);
-        this.setPrestige(prestige);
+        this.setSfTitle(sfTitle);
+        this.setMcmmoPower(mcmmoPower);
+        this.setMageRank(mageRank);
+        this.setSkillClass(skillClass);
+        this.setSkillLevel(skillLevel);
+        this.setElement(getElement());
+        this.setMatrik(matrik);
         this.matrixPlayer = matrixPlayer;
     }
 
@@ -138,21 +153,19 @@ public class PlayerStats {
         jo.put("last_damage_cause", getLastDamageCause());
         jo.put("remaining_air", getRemainingAir());
         jo.put("timestamp", getTimeStamp().toString());
-        jo.put("guildRank", getGuildRank());
+        jo.put("guildRankName", getGuildRankName());
         jo.put("threatTier", getThreatTier());
-        jo.put("sfLevel", getSfLevel());
-        jo.put("prestige", getPrestige());
+        jo.put("sfTitle", getSfTitle());
+        jo.put("mcMMO_Power", getMcmmoPower());
+        jo.put("mageRank", getMageRank());
+        jo.put("skillClass", getSkillClass());
+        jo.put("skillLevel", getSkillLevel());
+        jo.put("element", getElement());
+        jo.put("matrik", getMatrik());
 
         return jo;
     }
 
-    public int getGuildRank() {
-        return guildRank;
-    }
-
-    public void setGuildRank(int guildRank) {
-        this.guildRank = guildRank;
-    }
 
     public int getThreatTier() {
         return threatTier;
@@ -162,19 +175,67 @@ public class PlayerStats {
         this.threatTier = threatTier;
     }
 
-    public int getSfLevel() {
-        return sfLevel;
+    public String getSfTitle() {
+        return sfTitle;
     }
 
-    public void setSfLevel(int sfLevel) {
-        this.sfLevel = sfLevel;
+    public void setSfTitle(String sfLevel) {
+        this.sfTitle = sfTitle;
     }
 
-    public int getPrestige() {
-        return prestige;
+    public int getMcmmoPower() {
+        return mcmmoPower;
     }
 
-    public void setPrestige(int prestige) {
-        this.prestige = prestige;
+    public void setMcmmoPower(int mcmmoPower) {
+        this.mcmmoPower = mcmmoPower;
+    }
+
+    public String getMageRank() {
+        return mageRank;
+    }
+
+    public void setMageRank(String mageRank) {
+        this.mageRank = mageRank;
+    }
+
+    public int getSkillLevel() {
+        return skillLevel;
+    }
+
+    public void setSkillLevel(int skillLevel) {
+        this.skillLevel = skillLevel;
+    }
+
+    public String getSkillClass() {
+        return skillClass;
+    }
+
+    public void setSkillClass(String skillClass) {
+        this.skillClass = skillClass;
+    }
+
+    public int getMatrik() {
+        return matrik;
+    }
+
+    public void setMatrik(int matrik) {
+        this.matrik = matrik;
+    }
+
+    public String getGuildRankName() {
+        return guildRankName;
+    }
+
+    public void setGuildRankName(String guildRankName) {
+        this.guildRankName = guildRankName;
+    }
+
+    public String getElement() {
+        return element;
+    }
+
+    public void setElement(String element) {
+        this.element = element;
     }
 }

@@ -1,5 +1,8 @@
 package org.matrixnetwork.stats2.handler;
 
+import com.gmail.mrphpfan.mccombatlevel.McCombatLevel;
+import com.projectkorra.projectkorra.BendingPlayer;
+import com.projectkorra.projectkorra.Element;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -11,6 +14,10 @@ import org.matrixnetwork.stats2.entity.PlayerStats;
 import org.matrixnetwork.stats2.manager.DataManager;
 
 import java.time.LocalDateTime;
+
+import static com.gmail.mrphpfan.mccombatlevel.calculator.JavaScriptCalculator.*;
+import static com.projectkorra.projectkorra.BendingPlayer.getBendingPlayer;
+import static com.projectkorra.projectkorra.Element.getElement;
 
 public class StatsHandler {
     private BukkitTask runnable;
@@ -46,10 +53,20 @@ public class StatsHandler {
                         }
 
                         double balance = MatrixStats.getEcon().getBalance(p);
-                        int prestige = MatrixStats.getElitePrestige(p.getName());
-                        int guildRank = MatrixStats.getGuildRank(p.getName());
-                        int sfLevel = MatrixStats.getSlimefunLevel(p.getName());
-                        int threatTier = MatrixStats.getThreatTier(p.getName());
+                        String guildRank = getGuildRankName(p.getName());
+                        String sfTitle = getSlimefunTitle(p.getName());
+                        int threatTier = getThreatTier(p.getName());
+                        String mageRank = "Beginner"; //placeholder for now
+                        String skillClass = getSkillClass(p.getName());
+                        int skillLevel = getSkillLevel(p.getName());
+                        int mcmmoPower = (int) getMcMMOLvl(p);
+                        String element = "";
+                        BendingPlayer bPlayer = getBendingPlayer(p);
+                        for (Element e : bPlayer.getElements()) {
+                            element = e.getColor() + e.getName() + ", ";
+                        }
+                        element = bPlayer.getElements().size() == 0 ? "None" : element;
+                        int matrik = McCombatLevel.inst().getPlayerLevels().get(p.getName());
                             PlayerStats data = new PlayerStats(p.getExp(),
                                     p.getFoodLevel(),
                                     p.getLocation().getX(),
@@ -63,8 +80,13 @@ public class StatsHandler {
                                     LocalDateTime.now(),
                                     guildRank,
                                     threatTier,
-                                    sfLevel,
-                                    prestige,
+                                    sfTitle,
+                                    mcmmoPower,
+                                    mageRank,
+                                    skillClass,
+                                    skillLevel,
+                                    element,
+                                    matrik,
                                     player);
                             session.merge(data);
                     }
