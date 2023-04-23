@@ -26,7 +26,6 @@ public class Auth {
     private PrivateKey privateKey;
 
     private Auth() {
-        System.out.println("generating keys");
         Map<String, Object> rsaKeys = null;
 
         try {
