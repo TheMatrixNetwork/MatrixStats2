@@ -1,6 +1,7 @@
 package org.matrixnetwork.stats2.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.json.simple.JSONObject;
 
 import javax.persistence.*;

@@ -69,16 +69,4 @@ public class MatrixPlayer {
         this.stats = stats;
     }
     //endregion
-
-    public JSONObject toJson() {
-        JSONObject player = new JSONObject();
-        JSONArray stats = new JSONArray();
-        for (PlayerStats stat : getStats()) {
-            stats.add(stat.toJSON());
-        }
-        player.put("username", username);
-        player.put("uuid", uuid);
-        player.put("org/matrixnetwork/stats2", stats);
-        return player;
-    }
 }

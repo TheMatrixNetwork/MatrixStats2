@@ -1,5 +1,6 @@
 package org.matrixnetwork.stats2;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.magmaguy.elitemobs.playerdata.ElitePlayerInventory;
 import com.sun.net.httpserver.HttpServer;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
@@ -12,12 +13,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.glassfish.jersey.jdkhttp.JdkHttpServerFactory;
+import org.glassfish.jersey.message.GZipEncoder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.matrixnetwork.stats2.handler.StatsHandler;
+import org.matrixnetwork.stats2.listener.StatsListener;
 import org.matrixnetwork.stats2.rest.AuthResource;
 import org.matrixnetwork.stats2.rest.SkinResource;
 import org.matrixnetwork.stats2.rest.StatsResource;
 import org.matrixnetwork.stats2.rest.filter.CorsFilter;
+import org.matrixnetwork.stats2.util.JacksonFeature;
 
 import java.net.URI;
 import java.util.List;
@@ -49,6 +53,8 @@ public class MatrixStats extends JavaPlugin{
 			return;
 		}
 
+		getServer().getPluginManager().registerEvents(new StatsListener(), this);
+
 		StatsHandler.init();
 
 		ResourceConfig rc = new ResourceConfig();
@@ -57,6 +63,8 @@ public class MatrixStats extends JavaPlugin{
 		rc.register(SkinResource.class);
 		rc.register(AuthResource.class);
 		rc.register(CorsFilter.class);
+		rc.register(new GZipEncoder());
+		rc.register(JacksonFeature.class);
 
 		server = JdkHttpServerFactory.createHttpServer(
 				URI.create( "http://localhost:8081/api" ), rc );

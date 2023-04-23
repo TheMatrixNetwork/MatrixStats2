@@ -76,13 +76,10 @@ dependencies {
     compileOnly("com.github.MilkBowl:VaultAPI:1.7") {
         exclude group: 'org.bukkit', module: 'bukkit'
     }
-    implementation("javax.json.bind:javax.json.bind-api:1.0")
-    implementation("org.eclipse:yasson:1.0")
-    implementation("org.glassfish:javax.json:1.1")
-    implementation("org.jboss.resteasy:resteasy-jaxrs:3.1.2.Final")
+
     implementation("org.glassfish.jersey.containers:jersey-container-jdk-http:2.25")
-    implementation("org.jboss.resteasy:resteasy-jaxb-provider:3.1.2.Final")
-    implementation("org.jboss.resteasy:resteasy-servlet-initializer:3.1.2.Final")
+    implementation("com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.7.5")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.2")
     implementation("org.hibernate:hibernate-core:5.3.23.Final")
     implementation("mysql:mysql-connector-java:8.0.27")
     implementation("com.google.inject:guice:4.0")

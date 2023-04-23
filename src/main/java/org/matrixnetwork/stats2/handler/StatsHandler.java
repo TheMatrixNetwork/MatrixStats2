@@ -41,10 +41,8 @@ public class StatsHandler {
 
                         if(player == null) {
                             Session s = DataManager.getInstance().getSession();
-                            Transaction tra = s.beginTransaction();
 
                             player = (MatrixPlayer) s.merge(new MatrixPlayer(p.getUniqueId().toString(), p.getName()));
-                            tra.commit();
                         }
 
                         double balance = MatrixStats.getEcon().getBalance(p);
@@ -75,6 +73,6 @@ public class StatsHandler {
 
                 }
             }
-        }.runTaskTimer(MatrixStats.getPlugin(), 20*60*10, 20*60*10);
+        }.runTaskTimer(MatrixStats.getPlugin(), 20*60, 20*60);
     }
 }

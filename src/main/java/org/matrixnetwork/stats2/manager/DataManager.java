@@ -9,6 +9,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.matrixnetwork.stats2.entity.MatrixPlayer;
 import org.matrixnetwork.stats2.entity.PlayerStats;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.Properties;
@@ -77,6 +78,28 @@ public class DataManager {
                     )).uniqueResult();
 
             return player;
+        }
+    }
+
+    public PlayerStats getLastStatisticsOfPlayer(Long matrixPlayerId) {
+        try(Session session = DataManager.getInstance().getSession()) {
+            CriteriaBuilder cb = DataManager.getInstance().getSession().getCriteriaBuilder();
+
+            CriteriaQuery<PlayerStats> criteria = cb
+                    .createQuery(PlayerStats.class);
+
+            Root<PlayerStats> root = criteria.from(PlayerStats.class);
+
+            PlayerStats stats = session.createQuery(criteria.select(root)
+                    .where(
+                            cb.equal(root.get("matrixPlayer"), matrixPlayerId)
+                    )
+                    .orderBy(cb.desc(root.get("timeStamp"))))
+                    .setFirstResult(0)
+                    .setMaxResults(1)
+                    .list().get(0);
+
+            return stats;
         }
     }
 }
