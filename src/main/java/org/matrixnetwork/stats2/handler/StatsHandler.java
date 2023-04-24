@@ -17,18 +17,16 @@ import java.time.LocalDateTime;
 
 import static com.gmail.mrphpfan.mccombatlevel.calculator.JavaScriptCalculator.*;
 import static com.projectkorra.projectkorra.BendingPlayer.getBendingPlayer;
-import static com.projectkorra.projectkorra.Element.getElement;
 
 public class StatsHandler {
-    private BukkitTask runnable;
-
     private static StatsHandler instance;
+    private BukkitTask runnable;
 
     private StatsHandler() {
     }
 
     public static StatsHandler getInstance() {
-        if(instance == null)
+        if (instance == null)
             init();
 
         return instance;
@@ -43,10 +41,10 @@ public class StatsHandler {
                 try (Session session = DataManager.getInstance().getSession()) {
                     Transaction t = session.beginTransaction();
 
-                    for(Player p : MatrixStats.getPlugin().getServer().getOnlinePlayers()) {
+                    for (Player p : MatrixStats.getPlugin().getServer().getOnlinePlayers()) {
                         MatrixPlayer player = DataManager.getInstance().getMatrixPlayerByProperty("uuid", p.getUniqueId().toString());
 
-                        if(player == null) {
+                        if (player == null) {
                             Session s = DataManager.getInstance().getSession();
 
                             player = (MatrixPlayer) s.merge(new MatrixPlayer(p.getUniqueId().toString(), p.getName()));
@@ -67,34 +65,34 @@ public class StatsHandler {
                         }
                         element = bPlayer.getElements().size() == 0 ? "None" : element;
                         int matrik = McCombatLevel.inst().getPlayerLevels().get(p.getName());
-                            PlayerStats data = new PlayerStats(p.getExp(),
-                                    p.getFoodLevel(),
-                                    p.getLocation().getX(),
-                                    p.getLocation().getY(),
-                                    p.getLocation().getZ(),
-                                    balance,
-                                    p.getHealth(),
-                                    p.getGameMode().toString(),
-                                    p.getLastDamageCause() == null ? null : p.getLastDamageCause().getCause().toString(),
-                                    p.getRemainingAir(),
-                                    LocalDateTime.now(),
-                                    guildRank,
-                                    threatTier,
-                                    sfTitle,
-                                    mcmmoPower,
-                                    mageRank,
-                                    skillClass,
-                                    skillLevel,
-                                    element,
-                                    matrik,
-                                    player);
-                            session.merge(data);
+                        PlayerStats data = new PlayerStats(p.getExp(),
+                                p.getFoodLevel(),
+                                p.getLocation().getX(),
+                                p.getLocation().getY(),
+                                p.getLocation().getZ(),
+                                balance,
+                                p.getHealth(),
+                                p.getGameMode().toString(),
+                                p.getLastDamageCause() == null ? null : p.getLastDamageCause().getCause().toString(),
+                                p.getRemainingAir(),
+                                LocalDateTime.now(),
+                                guildRank,
+                                threatTier,
+                                sfTitle,
+                                mcmmoPower,
+                                mageRank,
+                                skillClass,
+                                skillLevel,
+                                element,
+                                matrik,
+                                player);
+                        session.merge(data);
                     }
 
                     t.commit();
 
                 }
             }
-        }.runTaskTimer(MatrixStats.getPlugin(), 20*60, 20*60);
+        }.runTaskTimer(MatrixStats.getPlugin(), 20 * 60, 20 * 60);
     }
 }

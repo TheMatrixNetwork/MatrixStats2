@@ -9,14 +9,14 @@ import org.hibernate.Transaction;
 import org.matrixnetwork.stats2.entity.MatrixPlayer;
 import org.matrixnetwork.stats2.manager.DataManager;
 
-public class StatsListener  implements Listener {
+public class StatsListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player p = event.getPlayer();
         MatrixPlayer player = DataManager.getInstance()
                 .getMatrixPlayerByProperty("uuid", p.getUniqueId().toString());
 
-        if(player == null) {
+        if (player == null) {
             Session s = DataManager.getInstance().getSession();
             Transaction t = s.beginTransaction();
             s.merge(new MatrixPlayer(p.getUniqueId().toString(), p.getName()));

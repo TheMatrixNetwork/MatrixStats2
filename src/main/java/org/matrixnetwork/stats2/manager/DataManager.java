@@ -53,7 +53,7 @@ public class DataManager {
     }
 
     public static DataManager getInstance() {
-        if(instance == null)
+        if (instance == null)
             instance = new DataManager();
 
         return instance;
@@ -64,7 +64,7 @@ public class DataManager {
     }
 
     public MatrixPlayer getMatrixPlayerByProperty(String propertyName, Object propertyValue) {
-        try(Session session = DataManager.getInstance().getSession()) {
+        try (Session session = DataManager.getInstance().getSession()) {
             CriteriaQuery<MatrixPlayer> criteria = DataManager.getInstance().getSession()
                     .getCriteriaBuilder()
                     .createQuery(MatrixPlayer.class);
@@ -82,7 +82,7 @@ public class DataManager {
     }
 
     public PlayerStats getLastStatisticsOfPlayer(Long matrixPlayerId) {
-        try(Session session = DataManager.getInstance().getSession()) {
+        try (Session session = DataManager.getInstance().getSession()) {
             CriteriaBuilder cb = DataManager.getInstance().getSession().getCriteriaBuilder();
 
             CriteriaQuery<PlayerStats> criteria = cb
@@ -91,10 +91,10 @@ public class DataManager {
             Root<PlayerStats> root = criteria.from(PlayerStats.class);
 
             PlayerStats stats = session.createQuery(criteria.select(root)
-                    .where(
-                            cb.equal(root.get("matrixPlayer"), matrixPlayerId)
-                    )
-                    .orderBy(cb.desc(root.get("timeStamp"))))
+                            .where(
+                                    cb.equal(root.get("matrixPlayer"), matrixPlayerId)
+                            )
+                            .orderBy(cb.desc(root.get("timeStamp"))))
                     .setFirstResult(0)
                     .setMaxResults(1)
                     .list().get(0);

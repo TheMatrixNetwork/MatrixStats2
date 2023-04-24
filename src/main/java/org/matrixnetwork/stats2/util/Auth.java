@@ -2,28 +2,22 @@ package org.matrixnetwork.stats2.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
-import org.matrixnetwork.stats2.MatrixStats;
-import org.matrixnetwork.stats2.entity.MatrixPlayer;
-import org.matrixnetwork.stats2.entity.Token;
-import org.matrixnetwork.stats2.manager.DataManager;
 
-import javax.crypto.spec.SecretKeySpec;
-import javax.persistence.criteria.CriteriaBuilder;
-import java.security.*;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Auth {
     private static Auth instance;
-    public long TOKEN_EXPIRATION_TIME = 60*5; // in seconds
+    public long TOKEN_EXPIRATION_TIME = 60 * 5; // in seconds
 
-    private PublicKey publicKey;
-    private PrivateKey privateKey;
+    private final PublicKey publicKey;
+    private final PrivateKey privateKey;
 
     private Auth() {
         Map<String, Object> rsaKeys = null;
@@ -44,6 +38,20 @@ public class Auth {
 
         return instance;
     }
+
+    private static Map<String, Object> getRSAKeys() throws Exception {
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+        keyPairGenerator.initialize(2048);
+        KeyPair keyPair = keyPairGenerator.generateKeyPair();
+        PrivateKey privateKey = keyPair.getPrivate();
+        PublicKey publicKey = keyPair.getPublic();
+        Map<String, Object> keys = new HashMap<String, Object>();
+        keys.put("private", privateKey);
+        keys.put("public", publicKey);
+        return keys;
+    }
+
+    // verify and get claims using public key
 
     public String generateToken(String username) {
         String token = null;
@@ -70,29 +78,15 @@ public class Auth {
         return token;
     }
 
-    // verify and get claims using public key
-
     public String verifyToken(String token) {
         Claims claims;
         try {
             claims = Jwts.parserBuilder().setSigningKey(publicKey).build().parseClaimsJws(token).getBody();
         } catch (Exception e) {
-            return null ;
+            return null;
         }
 
         return claims.getSubject();
-    }
-
-    private static Map<String, Object> getRSAKeys() throws Exception {
-        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
-        keyPairGenerator.initialize(2048);
-        KeyPair keyPair = keyPairGenerator.generateKeyPair();
-        PrivateKey privateKey = keyPair.getPrivate();
-        PublicKey publicKey = keyPair.getPublic();
-        Map<String, Object> keys = new HashMap<String, Object>();
-        keys.put("private", privateKey);
-        keys.put("public", publicKey);
-        return keys;
     }
 
 }

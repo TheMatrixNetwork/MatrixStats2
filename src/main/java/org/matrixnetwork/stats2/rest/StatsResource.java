@@ -1,10 +1,8 @@
 package org.matrixnetwork.stats2.rest;
 
-import net.skinsrestorer.api.SkinsRestorerAPI;
 import org.bukkit.entity.Player;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.matrixnetwork.stats2.MatrixStats;
 import org.matrixnetwork.stats2.entity.MatrixPlayer;
@@ -19,19 +17,19 @@ import java.util.stream.Collectors;
 
 @Path("stats")
 public class StatsResource {
-    private JSONParser parser = new JSONParser();
+    private final JSONParser parser = new JSONParser();
 
     @Produces(MediaType.APPLICATION_JSON)
     @Path("all")
     @GET
     public Response getStats(@HeaderParam("Authorization") String tokenStr) {
-        if(tokenStr == null) {
+        if (tokenStr == null) {
             return Response.status(400).build();
         }
 
         String username = Auth.getInstance().verifyToken(tokenStr);
 
-        if(username != null) {
+        if (username != null) {
             try {
                 MatrixPlayer mp = DataManager.getInstance().getMatrixPlayerByProperty("username", username);
                 return Response.ok(mp.getStats().stream()
@@ -42,8 +40,7 @@ public class StatsResource {
                 MatrixStats.getPlugin().getLogger().info(ex.getMessage());
                 return Response.noContent().build();
             }
-        }
-        else {
+        } else {
             return Response.status(403).build();
         }
     }
@@ -52,13 +49,13 @@ public class StatsResource {
     @Path("latest")
     @GET
     public Response getLatestStats(@HeaderParam("Authorization") String tokenStr) {
-        if(tokenStr == null) {
+        if (tokenStr == null) {
             return Response.status(400).build();
         }
         DataManager dm = DataManager.getInstance();
         String username = Auth.getInstance().verifyToken(tokenStr);
 
-        if(username != null) {
+        if (username != null) {
             try {
                 MatrixPlayer mp = dm.getMatrixPlayerByProperty("username", username);
                 return Response.ok(PlayerStatsDTO.from(dm.getLastStatisticsOfPlayer(mp.getId()))).build();
@@ -67,21 +64,20 @@ public class StatsResource {
                 MatrixStats.getPlugin().getLogger().info(ex.getMessage());
                 return Response.noContent().build();
             }
-        }
-        else {
+        } else {
             return Response.status(403).build();
         }
     }
 
     @Path("/{username}")
     @GET
-    @Produces( MediaType.APPLICATION_JSON )
+    @Produces(MediaType.APPLICATION_JSON)
     public Response meet(@PathParam("username") String username) {
-        if(MatrixStats.getPlugin().getServer().getPlayer(username) != null) {
+        if (MatrixStats.getPlugin().getServer().getPlayer(username) != null) {
             Player p = MatrixStats.getPlugin().getServer().getPlayer(username);
             MatrixPlayer mP = DataManager.getInstance().getMatrixPlayerByProperty("uuid", p.getUniqueId().toString());
 
-            if(mP == null) {
+            if (mP == null) {
                 Session s = DataManager.getInstance().getSession();
                 Transaction t = s.beginTransaction();
 
@@ -90,8 +86,7 @@ public class StatsResource {
             }
 
             return Response.ok(mP).build();
-        }
-        else {
+        } else {
             return Response.status(404).build();
         }
     }

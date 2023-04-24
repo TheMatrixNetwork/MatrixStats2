@@ -1,20 +1,15 @@
 package org.matrixnetwork.stats2.entity;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class MatrixPlayer {
+    String uuid;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private
     Long id;
-
-    String uuid;
-
     private String username;
 
     @OneToMany(mappedBy = "matrixPlayer", fetch = FetchType.EAGER)

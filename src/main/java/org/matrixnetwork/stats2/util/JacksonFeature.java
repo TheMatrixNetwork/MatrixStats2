@@ -13,15 +13,15 @@ import javax.ws.rs.ext.MessageBodyWriter;
 
 public class JacksonFeature implements Feature {
 
-    public boolean configure( final FeatureContext context ) {
+    public boolean configure(final FeatureContext context) {
 
         String postfix = '.' + context.getConfiguration().getRuntimeType().name().toLowerCase();
 
-        context.property( CommonProperties.MOXY_JSON_FEATURE_DISABLE + postfix, true );
+        context.property(CommonProperties.MOXY_JSON_FEATURE_DISABLE + postfix, true);
 
-        context.register( JsonParseExceptionMapper.class );
-        context.register( JsonMappingExceptionMapper.class );
-        context.register( JacksonJsonProvider.class, MessageBodyReader.class, MessageBodyWriter.class );
+        context.register(JsonParseExceptionMapper.class);
+        context.register(JsonMappingExceptionMapper.class);
+        context.register(JacksonJsonProvider.class, MessageBodyReader.class, MessageBodyWriter.class);
         context.register(JavaTimeModule.class);
 
         return true;

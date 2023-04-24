@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 @Path("/auth")
 public class AuthResource {
-    private JSONParser parser = new JSONParser();
+    private final JSONParser parser = new JSONParser();
 
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -27,7 +27,7 @@ public class AuthResource {
             return Response.status(400).build();
         }
 
-        if(obj.get("username") == null ||
+        if (obj.get("username") == null ||
                 !(obj.get("username") instanceof String) ||
                 obj.get("password") == null ||
                 !(obj.get("password") instanceof String)) {
@@ -35,7 +35,7 @@ public class AuthResource {
         }
 
 
-        if(AuthMeApi.getInstance().checkPassword((String) obj.get("username"), (String) obj.get("password"))) {
+        if (AuthMeApi.getInstance().checkPassword((String) obj.get("username"), (String) obj.get("password"))) {
             String token = Auth.getInstance().generateToken((String) obj.get("username"));
 
             if (token == null) {
@@ -46,8 +46,7 @@ public class AuthResource {
             retObj.put("token", token);
             retObj.put("expiryDate", LocalDateTime.now().plusSeconds(Auth.getInstance().TOKEN_EXPIRATION_TIME).toString());
             return Response.ok(retObj.toJSONString()).build();
-        }
-        else {
+        } else {
             return Response.status(403).build();
         }
     }
@@ -56,7 +55,7 @@ public class AuthResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response optionsForBookResource() {
         return Response.status(200)
-                .header("Allow","POST")
+                .header("Allow", "POST")
                 .header("Content-Type", MediaType.APPLICATION_JSON)
                 .header("Content-Length", "0")
                 .build();
