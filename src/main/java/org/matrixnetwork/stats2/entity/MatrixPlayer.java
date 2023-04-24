@@ -8,8 +8,7 @@ public class MatrixPlayer {
     String uuid;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private
-    Long id;
+    private Long id;
     private String username;
 
     @OneToMany(mappedBy = "matrixPlayer", fetch = FetchType.EAGER)

@@ -7,6 +7,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 import org.matrixnetwork.stats2.entity.MatrixPlayer;
+import org.matrixnetwork.stats2.entity.PlayerKill;
 import org.matrixnetwork.stats2.entity.PlayerStats;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -42,6 +43,7 @@ public class DataManager {
 
             configuration.addAnnotatedClass(MatrixPlayer.class);
             configuration.addAnnotatedClass(PlayerStats.class);
+            configuration.addAnnotatedClass(PlayerKill.class);
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();
