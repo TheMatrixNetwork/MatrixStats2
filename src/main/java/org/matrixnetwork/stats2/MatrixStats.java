@@ -13,6 +13,7 @@ import org.bukkit.scheduler.BukkitTask;
 import org.glassfish.jersey.jdkhttp.JdkHttpServerFactory;
 import org.glassfish.jersey.message.GZipEncoder;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.ServerProperties;
 import org.matrixnetwork.stats2.handler.StatsHandler;
 import org.matrixnetwork.stats2.listener.StatsListener;
 import org.matrixnetwork.stats2.rest.AuthResource;
@@ -60,6 +61,8 @@ public class MatrixStats extends JavaPlugin{
 		rc.register(CorsFilter.class);
 		rc.register(new GZipEncoder());
 		rc.register(JacksonFeature.class);
+
+		rc.property(ServerProperties.WADL_FEATURE_DISABLE, true);
 
 		server = JdkHttpServerFactory.createHttpServer(
 				URI.create( "http://localhost:8081/api" ), rc );
