@@ -12,28 +12,37 @@ import org.matrixnetwork.stats2.entity.PlayerKill;
 import org.matrixnetwork.stats2.manager.DataManager;
 
 public class StatsListener implements Listener {
+    private DataManager dataManager = DataManager.getInstance();
+
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player p = event.getPlayer();
-        MatrixPlayer player = DataManager.getInstance()
-                .getMatrixPlayerByProperty("uuid", p.getUniqueId().toString());
+        try(Session s = dataManager.getSession();) {
+            MatrixPlayer player = DataManager.getInstance()
+                    .getMatrixPlayerByProperty("uuid", p.getUniqueId().toString(), s);
 
-        if (player == null) {
-            Session s = DataManager.getInstance().getSession();
-            Transaction t = s.beginTransaction();
-            s.merge(new MatrixPlayer(p.getUniqueId().toString(), p.getName()));
-            t.commit();
+            if (player == null) {
+                Transaction t = s.beginTransaction();
+                s.merge(new MatrixPlayer(p.getUniqueId().toString(), p.getName()));
+                t.commit();
+            }
         }
     }
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         if(event.getEntity().getKiller() != null) {
-            Session s = DataManager.getInstance().getSession();
-            Transaction t = s.beginTransaction();
-            s.merge(new PlayerKill(event.getPlayer().getKiller().getUniqueId().toString(),
-                    event.getPlayer().getUniqueId().toString()));
-            t.commit();
+            Player p = event.getPlayer();
+            Player killerP =  p.getKiller();
+
+            try(Session s = dataManager.getSession()) {
+                Transaction t = s.beginTransaction();
+                MatrixPlayer killer = dataManager
+                        .getMatrixPlayerByProperty("uuid", killerP.getUniqueId().toString(), s);
+                s.merge(new PlayerKill(killer,
+                        p.getUniqueId().toString(), p.getName()));
+                t.commit();
+            }
         }
     }
 }

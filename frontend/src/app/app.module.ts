@@ -13,12 +13,14 @@ import {CookieModule} from "ngx-cookie";
 import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
 import {NgOptimizedImage} from "@angular/common";
 import {AddHeaderInterceptor} from "./interceptor/backend-interceptor";
+import { PlayerStatusComponent } from './components/player-status/player-status.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    PlayerStatusComponent
   ],
   imports: [
     BrowserModule,

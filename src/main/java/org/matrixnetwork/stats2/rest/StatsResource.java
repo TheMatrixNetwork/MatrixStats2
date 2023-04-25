@@ -15,33 +15,36 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.stream.Collectors;
 
-@Path("stats")
+@Path("/stats")
 public class StatsResource {
     private final JSONParser parser = new JSONParser();
+    DataManager dataManager = DataManager.getInstance();
 
     @Produces(MediaType.APPLICATION_JSON)
     @Path("all")
     @GET
     public Response getStats(@HeaderParam("Authorization") String tokenStr) {
         if (tokenStr == null) {
-            return Response.status(400).build();
+            return Response.status(401).build();
         }
 
         String username = Auth.getInstance().verifyToken(tokenStr);
 
-        if (username != null) {
-            try {
-                MatrixPlayer mp = DataManager.getInstance().getMatrixPlayerByProperty("username", username);
-                return Response.ok(mp.getStats().stream()
-                        .map(PlayerStatsDTO::from)
-                        .collect(Collectors.toList())).build();
-            } catch (Exception ex) {
-                MatrixStats.getPlugin().getLogger().info(ex.toString());
-                MatrixStats.getPlugin().getLogger().info(ex.getMessage());
-                return Response.noContent().build();
+        try(Session s = dataManager.getSession()) {
+            if (username != null) {
+                try {
+                    MatrixPlayer mp = DataManager.getInstance().getMatrixPlayerByProperty("username", username, s);
+                    return Response.ok(mp.getStats().stream()
+                            .map(PlayerStatsDTO::from)
+                            .collect(Collectors.toList())).build();
+                } catch (Exception ex) {
+                    MatrixStats.getPlugin().getLogger().info(ex.toString());
+                    MatrixStats.getPlugin().getLogger().info(ex.getMessage());
+                    return Response.noContent().build();
+                }
+            } else {
+                return Response.status(403).build();
             }
-        } else {
-            return Response.status(403).build();
         }
     }
 
@@ -50,44 +53,59 @@ public class StatsResource {
     @GET
     public Response getLatestStats(@HeaderParam("Authorization") String tokenStr) {
         if (tokenStr == null) {
-            return Response.status(400).build();
+            return Response.status(401).build();
         }
-        DataManager dm = DataManager.getInstance();
         String username = Auth.getInstance().verifyToken(tokenStr);
 
-        if (username != null) {
-            try {
-                MatrixPlayer mp = dm.getMatrixPlayerByProperty("username", username);
-                return Response.ok(PlayerStatsDTO.from(dm.getLastStatisticsOfPlayer(mp.getId()))).build();
-            } catch (Exception ex) {
-                MatrixStats.getPlugin().getLogger().info(ex.toString());
-                MatrixStats.getPlugin().getLogger().info(ex.getMessage());
-                return Response.noContent().build();
+        try(Session s = dataManager.getSession()) {
+            if (username != null) {
+                try {
+                    MatrixPlayer mp = dataManager.getMatrixPlayerByProperty("username", username, s);
+                    return Response.ok(PlayerStatsDTO.from(dataManager.getLastStatisticsOfPlayer(mp.getId(), s))).build();
+                } catch (Exception ex) {
+                    MatrixStats.getPlugin().getLogger().info(ex.toString());
+                    MatrixStats.getPlugin().getLogger().info(ex.getMessage());
+                    return Response.noContent().build();
+                }
+            } else {
+                return Response.status(403).build();
             }
-        } else {
-            return Response.status(403).build();
         }
     }
 
-    @Path("/{username}")
+    @Path("/matrixdex/{username}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response meet(@PathParam("username") String username) {
-        if (MatrixStats.getPlugin().getServer().getPlayer(username) != null) {
-            Player p = MatrixStats.getPlugin().getServer().getPlayer(username);
-            MatrixPlayer mP = DataManager.getInstance().getMatrixPlayerByProperty("uuid", p.getUniqueId().toString());
+    public Response getStatsOfKilledPlayer(@PathParam("username") String targetUsername, @HeaderParam("Authorization") String tokenStr) {
+        if (tokenStr == null) {
+            return Response.status(401).build();
+        }
+        String issuerUser = Auth.getInstance().verifyToken(tokenStr);
 
-            if (mP == null) {
-                Session s = DataManager.getInstance().getSession();
-                Transaction t = s.beginTransaction();
+        try(Session s = dataManager.getSession()) {
+            if (issuerUser != null) {
+                try {
+                    MatrixPlayer issuerPlayer = dataManager.getMatrixPlayerByProperty("username", issuerUser, s);
+                    MatrixPlayer targetPlayer = dataManager.getMatrixPlayerByProperty("username", targetUsername, s);
+                    String targetUUID = targetPlayer.getUUID();
 
-                mP = (MatrixPlayer) s.merge(new MatrixPlayer(p.getUniqueId().toString(), p.getName()));
-                t.commit();
+                    if(issuerPlayer.getKills().stream().anyMatch(kill -> kill.getKilledUUID().equals(targetUUID))) {
+                        return Response.ok(PlayerStatsDTO.from(
+                                dataManager.getLastStatisticsOfPlayer(targetPlayer.getId(), s)
+                        )).build();
+                    }
+                    else {
+                        return Response.status(403).build();
+                    }
+
+                } catch (Exception ex) {
+                    MatrixStats.getPlugin().getLogger().info(ex.toString());
+                    MatrixStats.getPlugin().getLogger().info(ex.getMessage());
+                    return Response.noContent().build();
+                }
+            } else {
+                return Response.status(403).build();
             }
-
-            return Response.ok(mP).build();
-        } else {
-            return Response.status(404).build();
         }
     }
 }

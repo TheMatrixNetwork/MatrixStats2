@@ -42,7 +42,7 @@ public class StatsHandler {
                     Transaction t = session.beginTransaction();
 
                     for (Player p : MatrixStats.getPlugin().getServer().getOnlinePlayers()) {
-                        MatrixPlayer player = DataManager.getInstance().getMatrixPlayerByProperty("uuid", p.getUniqueId().toString());
+                        MatrixPlayer player = DataManager.getInstance().getMatrixPlayerByProperty("uuid", p.getUniqueId().toString(), session);
 
                         if (player == null) {
                             Session s = DataManager.getInstance().getSession();

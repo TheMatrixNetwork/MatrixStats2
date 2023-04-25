@@ -1,9 +1,8 @@
 package org.matrixnetwork.stats2.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.matrixnetwork.stats2.MatrixStats;
+
+import javax.persistence.*;
 
 @Entity
 public class PlayerKill {
@@ -11,12 +10,15 @@ public class PlayerKill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String killerUUID;
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = MatrixPlayer.class)
+    private MatrixPlayer killer;
     private String killedUUID;
+    private String killedUsername;
 
-    public PlayerKill(String killerUUID, String killedUUID) {
-        this.killerUUID = killerUUID;
+    public PlayerKill(MatrixPlayer killer, String killedUUID, String killedUsername) {
+        this.killer = killer;
         this.killedUUID = killedUUID;
+        this.killedUsername = killedUsername;
     }
 
     public PlayerKill() {
@@ -31,19 +33,27 @@ public class PlayerKill {
         this.id = id;
     }
 
-    public String getKillerUUID() {
-        return killerUUID;
-    }
-
-    public void setKillerUUID(String killerUUID) {
-        this.killerUUID = killerUUID;
-    }
-
     public String getKilledUUID() {
         return killedUUID;
     }
 
     public void setKilledUUID(String killedUUID) {
         this.killedUUID = killedUUID;
+    }
+
+    public String getKilledUsername() {
+        return killedUsername;
+    }
+
+    public void setKilledUsername(String killedUsername) {
+        this.killedUsername = killedUsername;
+    }
+
+    public MatrixPlayer getKiller() {
+        return killer;
+    }
+
+    public void setKiller(MatrixPlayer killer) {
+        this.killer = killer;
     }
 }
