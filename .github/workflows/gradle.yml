@@ -7,7 +7,7 @@ on:
       - 'frontend/**'
 
 env:
-  COPY_JARFILE_TO: '/Minecraft/Hardcore/plugins/ /Minecraft/Classic/plugins/'
+  COPY_JARFILE_TO: '/Minecraft/Hardcore/plugins/'
 
 jobs:
   build:
@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: Set up JDK 17
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
           java-version: 17
 
@@ -63,7 +63,7 @@ jobs:
 
     steps:
       - name: Set up JDK 17
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
           java-version: 17
 
@@ -153,7 +153,7 @@ jobs:
 
     steps:
       - name: Set up JDK 17
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
           java-version: 17
 
