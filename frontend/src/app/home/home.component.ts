@@ -6,9 +6,6 @@ import {DOCUMENT, NgFor} from "@angular/common";
 import {PlayerStats} from "../models/player-stats";
 import { NgForm } from '@angular/forms';
 import {PlayerKill} from "../models/player-kill";
-
-declare const genSkin: any;
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
