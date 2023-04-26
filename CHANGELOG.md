@@ -1,3 +1,11 @@
+# [1.1.0](https://github.com/TheMatrixNetwork/MatrixStats2/compare/v1.0.0...v1.1.0) (2023-04-26)
+
+
+### Features
+
+* implement matridex ([2135142](https://github.com/TheMatrixNetwork/MatrixStats2/commit/2135142d115262d8a0cebb91701a1e2d8dc37100))
+* save player kill statistics ([94a3eb9](https://github.com/TheMatrixNetwork/MatrixStats2/commit/94a3eb958d79c78a0707ddcd08f87d9f4e548377))
+
 # 1.0.0 (2023-04-24)
 
 
