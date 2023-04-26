@@ -23,7 +23,7 @@
     <div>
       <div class="flex justify-between items-center">
         <img ngSrc="assets/img/Slimeball_JE2_BE2.webp" width="40" height="40">
-        <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.sfLevel}}</p>
+        <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.sfTitle}}</p>
       </div>
       <div class="flex justify-between items-center mt-4">
         <img ngSrc="assets/img/minecraft-diamond.webp" width="40" height="40">
@@ -31,26 +31,26 @@
       </div>
       <div class="flex justify-between items-center mt-4">
         <img ngSrc="assets/img/crossed-swords.png" width="40" height="40">
-        <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.guildRank}}</p>
+        <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.guildRankName}}</p>
       </div>
       <div class="flex justify-between items-center mt-4">
         <img ngSrc="assets/img/medal.png" width="50" height="50">
-        <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.prestige}}</p>
+        <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.threatTier}}</p>
       </div>
     </div>
     <div class="inline-block h-[320px] min-h-[1em] w-0.5 self-stretch bg-black opacity-100"></div>
     <div>
       <div class="flex justify-between items-center">
         <img ngSrc="assets/img/mcmmo.jpeg" width="40" height="40">
-        <p style="font-size: 35px;" class="ml-4">--</p>
+        <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.mcmmoPower}}</p>
       </div>
       <div class="flex justify-between items-center mt-4">
         <img ngSrc="assets/img/potion.webp" width="40" height="40">
-        <p style="font-size: 35px;" class="ml-4">--</p>
+        <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.mageRank}}</p>
       </div>
       <div class="flex justify-between items-center mt-4">
         <img ngSrc="assets/img/skills.png" width="60" height="50">
-        <p style="font-size: 35px;" class="ml-4">--</p>
+        <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.skillClass}} ({{latestPlayerStats.skillLevel}})</p>
       </div>
       <div class="flex justify-between items-center mt-4">
         <p style="font-size: 35px;" class="ml-4 text-white" >.</p>

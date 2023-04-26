@@ -10,8 +10,13 @@ export interface PlayerStats {
   lastDamageCause: string,
   remainingAir: number,
   timeStamp: string,
-  guildRank: number,
+  guildRankName: string,
   threatTier: number,
-  sfLevel: number,
-  prestige: number
+  sfTitle: string,
+  mcmmoPower: number,
+  mageRank: string,
+  skillClass: string,
+  skillLevel: number,
+  element: string,
+  matrik: number
 }

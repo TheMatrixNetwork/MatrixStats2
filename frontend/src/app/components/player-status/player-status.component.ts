@@ -23,10 +23,15 @@ export class PlayerStatusComponent implements OnInit, OnChanges {
     lastDamageCause: "",
     remainingAir: 0,
     timeStamp: "",
-    guildRank: 0,
+    guildRankName: "",
     threatTier: 0,
-    sfLevel: 0,
-    prestige: 0
+    sfTitle: "",
+    skillLevel: 0,
+    mcmmoPower: 0,
+    skillClass: "",
+    mageRank: "",
+    element: "",
+    matrik: 0
   }
   heartRows: number[] = []
   @Input() playerName: string = '';
