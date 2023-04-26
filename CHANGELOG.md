@@ -1,3 +1,13 @@
+## [1.1.1](https://github.com/TheMatrixNetwork/MatrixStats2/compare/v1.1.0...v1.1.1) (2023-04-26)
+
+
+### Bug Fixes
+
+* add distribution to java step gh-actions ([883a1ed](https://github.com/TheMatrixNetwork/MatrixStats2/commit/883a1ede315a4f66ec9bcec0e1e1819e68f0a536))
+* only deploy jar to hardcore server ([1c9a12a](https://github.com/TheMatrixNetwork/MatrixStats2/commit/1c9a12a5168adeaa367f605e89e3f43b08c600c4))
+* update attribute names in frontend ([b36c0b2](https://github.com/TheMatrixNetwork/MatrixStats2/commit/b36c0b2b066245b1c2c2b1d30ccb629edf8f5e3e))
+* update versions of github actions ([31b40d8](https://github.com/TheMatrixNetwork/MatrixStats2/commit/31b40d814281dcfa93168f95eddae66f0332c99a))
+
 # [1.1.0](https://github.com/TheMatrixNetwork/MatrixStats2/compare/v1.0.0...v1.1.0) (2023-04-26)
 
 
