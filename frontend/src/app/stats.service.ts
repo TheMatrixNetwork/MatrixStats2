@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {AuthService} from "./auth.service";
 import { environment } from 'src/environments/environment';
 import {PlayerStats} from "./models/player-stats";
+import {PlayerKill} from "./models/player-kill";
 
 export interface Location {
   x: number;
@@ -40,5 +41,13 @@ export class StatsService {
 
   public getSkinName(): any {
       return this.http.get<any>(environment.url + `/api/skin/`);
+  }
+
+  getMatrixDexPlayerStats(playerName: string) {
+    return this.http.get<PlayerStats>(environment.url + `/api/stats/matrixdex/` + playerName);
+  }
+
+  getKilledPeople(): Observable<PlayerKill[]> {
+    return this.http.get<PlayerKill[]>(environment.url + `/api/kills/all`);
   }
 }

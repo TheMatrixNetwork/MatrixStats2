@@ -2,8 +2,10 @@ import {Component, ElementRef, Inject, OnInit, Renderer2} from '@angular/core';
 import {AuthService} from "../auth.service";
 import {StatsService} from "../stats.service";
 import {Router} from "@angular/router";
-import {DOCUMENT} from "@angular/common";
+import {DOCUMENT, NgFor} from "@angular/common";
 import {PlayerStats} from "../models/player-stats";
+import { NgForm } from '@angular/forms';
+import {PlayerKill} from "../models/player-kill";
 
 declare const genSkin: any;
 
@@ -14,43 +16,27 @@ declare const genSkin: any;
 })
 
 export class HomeComponent implements OnInit {
+  playerName: string = "";
+  searchPlayerName: string = "";
+  matriDexPlayers: PlayerKill[] = [];
+  playerNotInMatriDex: boolean = false;
 
-  constructor(private _authService: AuthService,
-              private _statsService: StatsService) { }
-
-  latestPlayerStats: PlayerStats = {
-    exp: 0,
-    foodLevel: 0,
-    loc_x: 0,
-    loc_y: 0,
-    loc_z: 0,
-    money: 0,
-    health: 0,
-    gamemode: "",
-    lastDamageCause: "",
-    remainingAir: 0,
-    timeStamp: "",
-    guildRank: 0,
-    threatTier: 0,
-    sfLevel: 0,
-    prestige: 0
-  }
-  heartRows: number[] = []
+  constructor(private _statsService: StatsService) { }
 
 
   ngOnInit(): void {
-    this._statsService.getSkinName().subscribe((skin: any) => {
-      console.log(skin.skin);
-
-      genSkin(skin.skin, 300, 500);
-    });
-
-    this._statsService.getLatestPlayerStats().subscribe(stats => {
-      this.latestPlayerStats = stats;
-      while(this.heartRows.length < stats.health) {
-        this.heartRows.push(0)
-      }
+    this._statsService.getKilledPeople().subscribe(kills => {
+      this.matriDexPlayers = kills;
     })
   }
 
+  submit() {
+    if(this.matriDexPlayers.map(kill => kill.killedUsername).indexOf(this.searchPlayerName) < 0) {
+      this.playerNotInMatriDex = true;
+    }
+    else {
+      this.playerNotInMatriDex = false;
+      this.playerName = this.searchPlayerName;
+    }
+  }
 }

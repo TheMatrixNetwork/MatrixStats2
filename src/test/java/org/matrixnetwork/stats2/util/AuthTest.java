@@ -10,14 +10,14 @@ class AuthTest {
     void testBasicUsage() {
         Auth auth = Auth.getInstance();
 
-        Auth.getInstance().TOKEN_EXPIRATION_TIME = 5;
+        Auth.getInstance().TOKEN_EXPIRATION_TIME = 1;
 
         String token  = auth.generateToken("UUID");
 
         assertThat(auth.verifyToken(token)).isEqualTo("UUID");
 
         try {
-            Thread.sleep((Auth.getInstance().TOKEN_EXPIRATION_TIME+3)*1000);
+            Thread.sleep((Auth.getInstance().TOKEN_EXPIRATION_TIME+1)*1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

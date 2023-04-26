@@ -1,82 +1,20 @@
 <div class="flex h-screen flex-col items-center justify-between">
-  <form class="m-4 w-11/12">
+  <form class="m-4 w-11/12" (ngSubmit)="submit()">
     <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
     <div class="relative">
       <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
         <svg aria-hidden="true" class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
       </div>
-      <input type="search" id="default-search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Search Matridex" required>
-      <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
+      <input name="default-search" [(ngModel)]="searchPlayerName"  type="search" id="default-search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Search Matridex" required>
+      <button class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
     </div>
+    <p *ngIf="playerNotInMatriDex" class="text-red-500 mt-2">
+      Player not in MatriDex!
+    </p>
   </form>
 
-  <div class="w-full flex justify-around items-center">
-    <div class="w-fit flex space-x-14 justify-between items-center">
-      <div>
-        <div class="flex justify-between items-center">
-          <img ngSrc="assets/img/icons8-minecraft-schwert-48.png" width="45" height="40">
-          <p style="font-size: 35px;" class="ml-4">--</p>
-        </div>
-        <div class="flex justify-between items-center mt-4">
-          <img ngSrc="assets/img/money.png" class="mr-5" width="45" height="40">
-          <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.money}}$</p>
-        </div>
-        <div class="flex justify-between items-center mt-4">
-          <img ngSrc="assets/img/minecraft-food.png" width="45" height="40">
-          <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.foodLevel}}</p>
-        </div>
-        <div class="flex justify-between items-center mt-4">
-          <img ngSrc="assets/img/experience-orb.webp" width="45" height="40">
-          <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.exp}}</p>
-        </div>
-      </div>
-      <div    class="inline-block h-[320px] min-h-[1em] w-0.5 self-stretch bg-black opacity-100"></div>
-      <div>
-        <div class="flex justify-between items-center">
-          <img ngSrc="assets/img/Slimeball_JE2_BE2.webp" width="45" height="40">
-          <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.sfLevel}}</p>
-        </div>
-        <div class="flex justify-between items-center mt-4">
-          <img ngSrc="assets/img/minecraft-diamond.webp" width="45" height="40">
-          <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.threatTier}}</p>
-        </div>
-        <div class="flex justify-between items-center mt-4">
-          <img ngSrc="assets/img/crossed-swords.png" width="45" height="40">
-          <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.guildRank}}</p>
-        </div>
-        <div class="flex justify-between items-center mt-4">
-          <img ngSrc="assets/img/medal.png" width="50" height="50">
-          <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.prestige}}</p>
-        </div>
-      </div>
-      <div class="inline-block h-[320px] min-h-[1em] w-0.5 self-stretch bg-black opacity-100"></div>
-      <div>
-        <div class="flex justify-between items-center">
-          <img ngSrc="assets/img/mcmmo.jpeg" width="45" height="40">
-          <p style="font-size: 35px;" class="ml-4">--</p>
-        </div>
-        <div class="flex justify-between items-center mt-4">
-          <img ngSrc="assets/img/potion.webp" width="45" height="40">
-          <p style="font-size: 35px;" class="ml-4">--</p>
-        </div>
-        <div class="flex justify-between items-center mt-4">
-          <img ngSrc="assets/img/skills.png" width="50" height="60">
-          <p style="font-size: 35px;" class="ml-4">--</p>
-        </div>
-        <div class="flex justify-between items-center mt-4">
-          <p style="font-size: 35px;" class="ml-4 text-white" >.</p>
-        </div>
-      </div>
-    </div>
-    <div class="flex items-center flex-col mt-8">
-      <h1 style="font-size: 30px">S1mple133</h1>
-      <div id="skinContainer"></div>
-      <div class="flex justify-between items-center mt-4">
-        <img *ngFor="let i of heartRows" ngSrc="assets/img/minecraft-heart.webp" width="35" height="35">
-        <!--<img *ngFor="let i of [1,2,3]" ngSrc="assets/img/minecraft-heart-black.png" width="35" height="35" >-->
-      </div>
-    </div>
-  </div>
+
+  <app-player-status [playerName]="playerName"></app-player-status>
 
   <div class="w-full">
     <footer class="bg-white shadow dark:bg-gray-900 w-full">

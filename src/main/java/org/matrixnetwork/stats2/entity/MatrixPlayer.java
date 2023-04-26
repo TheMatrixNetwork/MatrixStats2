@@ -8,12 +8,14 @@ public class MatrixPlayer {
     String uuid;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private
-    Long id;
+    private Long id;
     private String username;
 
-    @OneToMany(mappedBy = "matrixPlayer", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "matrixPlayer")
     private List<PlayerStats> stats;
+
+    @OneToMany(mappedBy = "killer")
+    private List<PlayerKill> kills;
 
     //region Constructors
     public MatrixPlayer(String uuid, List<PlayerStats> stats, String username) {
@@ -62,6 +64,14 @@ public class MatrixPlayer {
 
     public void setStats(List<PlayerStats> stats) {
         this.stats = stats;
+    }
+
+    public List<PlayerKill> getKills() {
+        return kills;
+    }
+
+    public void setKills(List<PlayerKill> kills) {
+        this.kills = kills;
     }
     //endregion
 }

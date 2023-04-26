@@ -1,4 +1,5 @@
 function genSkin(skinName, width, height) {
+  document.getElementById("skinContainer").innerText = ""
   var skinRender = new SkinRender({
     autoResize: true,
     render: {
