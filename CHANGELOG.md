@@ -1,3 +1,19 @@
+# [1.2.0](https://github.com/TheMatrixNetwork/MatrixStats2/compare/v1.1.1...v1.2.0) (2023-04-27)
+
+
+### Bug Fixes
+
+* add none slimefunt title ([70cf035](https://github.com/TheMatrixNetwork/MatrixStats2/commit/70cf035f4075ae632346369963f84dd3c8c04340))
+* better spacing ([bfc7835](https://github.com/TheMatrixNetwork/MatrixStats2/commit/bfc7835793a680a02892099d3f4f4d75f3fe7188))
+* strip color code from guild rank ([4d517ab](https://github.com/TheMatrixNetwork/MatrixStats2/commit/4d517ab007265eda3ff1d591c8856f5d264e5144))
+* Update MatrixCombatLevel jar ([aa8f749](https://github.com/TheMatrixNetwork/MatrixStats2/commit/aa8f7498e2b4f99d14fb53d1c2f2d7f67f54c53e))
+* update version of publish unit test action ([363945a](https://github.com/TheMatrixNetwork/MatrixStats2/commit/363945a18f7ba4cf92d34a61e3cdf6650775d433))
+
+
+### Features
+
+* implemented kill stats ([7c0c465](https://github.com/TheMatrixNetwork/MatrixStats2/commit/7c0c4654de87a80568dc23fefd05cfaca3bd5a26))
+
 ## [1.1.1](https://github.com/TheMatrixNetwork/MatrixStats2/compare/v1.1.0...v1.1.1) (2023-04-26)
 
 
