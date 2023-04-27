@@ -58,7 +58,7 @@ export class PlayerStatusComponent implements OnInit, OnChanges {
   updateData(playerName: string) {
     if(playerName == '') {
       this._statsService.getSkinName().subscribe((skin: any) => {
-        genSkin(skin.skin, 300, 350);
+        genSkin(skin.skin, 300, 400);
       });
 
       this._statsService.getLatestPlayerStats().subscribe(stats => {
@@ -73,7 +73,7 @@ export class PlayerStatusComponent implements OnInit, OnChanges {
 
     }
     else {
-      genSkin(playerName, 300, 350);
+      genSkin(playerName, 300, 400);
 
       this._statsService.getMatrixDexPlayerStats(playerName).subscribe(stats => {
         this.latestPlayerStats = stats;
