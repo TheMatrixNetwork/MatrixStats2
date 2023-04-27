@@ -10,7 +10,7 @@ class AuthTest {
     void testBasicUsage() {
         Auth auth = Auth.getInstance();
 
-        Auth.getInstance().TOKEN_EXPIRATION_TIME = 1;
+        Auth.getInstance().TOKEN_EXPIRATION_TIME = 2;
 
         String token  = auth.generateToken("UUID");
 

@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public record PlayerStatsDTO(
         float exp,
+        int kills,
         int foodLevel,
         double loc_x,
         double loc_y,
@@ -29,6 +30,7 @@ public record PlayerStatsDTO(
     public static PlayerStatsDTO from(PlayerStats stats) {
         return new PlayerStatsDTO(
                 stats.getExp(),
+                stats.getKills(),
                 stats.getFoodLevel(),
                 stats.getLoc_x(),
                 stats.getLoc_y(),

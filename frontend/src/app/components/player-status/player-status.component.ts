@@ -31,10 +31,16 @@ export class PlayerStatusComponent implements OnInit, OnChanges {
     skillClass: "",
     mageRank: "",
     element: "",
-    matrik: 0
+    matrik: 0,
+    kills: 0
   }
-  heartRows: number[] = []
+  heartHeartsPerRowArr: number[] = []
+  heartRows: number[] = [];
   @Input() playerName: string = '';
+  username: string = '';
+  heartsInLastRow: number[] = [];
+
+  HEALTH_HEARTS_PER_ROW = 10;
 
   constructor(private _authService: AuthService,
               private _statsService: StatsService) {
@@ -52,7 +58,7 @@ export class PlayerStatusComponent implements OnInit, OnChanges {
   updateData(playerName: string) {
     if(playerName == '') {
       this._statsService.getSkinName().subscribe((skin: any) => {
-        genSkin(skin.skin, 300, 500);
+        genSkin(skin.skin, 300, 350);
       });
 
       this._statsService.getLatestPlayerStats().subscribe(stats => {
@@ -60,17 +66,41 @@ export class PlayerStatusComponent implements OnInit, OnChanges {
         while(this.heartRows.length < stats.health) {
           this.heartRows.push(0)
         }
+        this.calculateHealthRows(this.latestPlayerStats.health);
       })
+
+      this.username = this._authService.getUsername()
+
     }
     else {
-      genSkin(playerName, 300, 500);
+      genSkin(playerName, 300, 350);
 
       this._statsService.getMatrixDexPlayerStats(playerName).subscribe(stats => {
         this.latestPlayerStats = stats;
         while(this.heartRows.length < stats.health) {
           this.heartRows.push(0)
         }
+        this.calculateHealthRows(this.latestPlayerStats.health);
       })
+
+      this.username = playerName
+    }
+  }
+
+  private calculateHealthRows(health: number) {
+    health = 25
+    const amountFullRows = Math.floor(health / this.HEALTH_HEARTS_PER_ROW);
+    const amountHearthsInLastRow = health - (amountFullRows * this.HEALTH_HEARTS_PER_ROW)
+    while (this.heartHeartsPerRowArr.length < this.HEALTH_HEARTS_PER_ROW) {
+      this.heartHeartsPerRowArr.push(0)
+    }
+    this.heartRows = [];
+    while (this.heartRows.length < amountFullRows) {
+      this.heartRows.push(0)
+    }
+    this.heartsInLastRow = [];
+    while (this.heartsInLastRow.length < amountHearthsInLastRow) {
+      this.heartsInLastRow.push(0)
     }
   }
 
