@@ -23,7 +23,7 @@
     <div>
       <div class="flex justify-between items-center">
         <img class="mr-2" ngSrc="assets/img/Slimeball_JE2_BE2.webp" width="40" height="40">
-        <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.sfTitle}}</p>
+        <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.sfTitle ? latestPlayerStats.sfTitle : "None"}}</p>
       </div>
       <div class="flex justify-between items-center mt-4">
         <img class="mr-2" ngSrc="assets/img/minecraft-diamond.webp" width="40" height="40">
