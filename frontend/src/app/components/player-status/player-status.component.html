@@ -4,7 +4,7 @@
     <div>
       <div class="flex justify-between items-center">
         <img class="mr-2" ngSrc="assets/img/icons8-minecraft-schwert-48.png" width="40" height="40">
-        <p style="font-size: 35px;" class="ml-4">--</p>
+        <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.kills}}</p>
       </div>
       <div class="flex justify-between items-center mt-4">
         <img class="mr-2" ngSrc="assets/img/money.png" class="mr-5" width="40" height="40">
@@ -58,11 +58,15 @@
     </div>
   </div>
   <div class="flex items-center flex-col mt-8">
-    <h1 style="font-size: 30px">S1mple133</h1>
+    <h1 style="font-size: 30px">{{username}}</h1>
     <div id="skinContainer"></div>
-    <div class="flex justify-between items-center mt-4">
-      <img class="mr-2" *ngFor="let i of heartRows" ngSrc="assets/img/minecraft-heart.webp" width="35" height="35">
-      <!--<img class="mr-2" *ngFor="let i of [1,2,3]" ngSrc="assets/img/minecraft-heart-black.png" width="35" height="35" >-->
-    </div>
+    <div class="flex items-start flex-col">
+      <div *ngFor="let i of heartRows" class="flex justify-between items-center mt-4">
+        <img *ngFor="let i of heartHeartsPerRowArr" ngSrc="assets/img/minecraft-heart.webp" width="20" height="20">
+        <!--<img *ngFor="let i of [1,2,3]" ngSrc="assets/img/minecraft-heart-black.png" width="35" height="35" >-->
+      </div>
+      <div class="flex justify-between items-start mt-4">
+        <img *ngFor="let i of heartsInLastRow" ngSrc="assets/img/minecraft-heart.webp" width="20" height="20">
+      </div>
   </div>
 </div>

@@ -18,5 +18,6 @@ export interface PlayerStats {
   skillClass: string,
   skillLevel: number,
   element: string,
-  matrik: number
+  matrik: number,
+  kills: number
 }

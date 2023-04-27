@@ -67,6 +67,7 @@ public class StatsHandler {
                         element = bPlayer.getElements().size() == 0 ? "None" : element;
                         int matrik = MatrixCombatLevel.inst().getPlayerLevels().get(p.getName());
                         PlayerStats data = new PlayerStats(p.getExp(),
+                                player.getKills().size(),
                                 p.getFoodLevel(),
                                 p.getLocation().getX(),
                                 p.getLocation().getY(),

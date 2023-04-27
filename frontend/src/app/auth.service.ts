@@ -45,6 +45,17 @@ export class AuthService {
     return this._cookieService.get("token");
   }
 
+  public getUsername() {
+    let token = this._cookieService.get("token");
+
+    if(token) {
+      let decodedJWT = JSON.parse(window.atob(token.split('.')[1]));
+      return decodedJWT.username;
+    }
+
+    return ''
+  }
+
   public isLoggedIn(): boolean {
     let token = this._cookieService.get("token");
     return token != null && !this.jwtHelper.isTokenExpired(token);

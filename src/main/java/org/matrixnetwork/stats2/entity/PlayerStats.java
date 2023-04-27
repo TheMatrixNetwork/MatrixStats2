@@ -33,12 +33,14 @@ public class PlayerStats {
     private int skillLevel;
     private String element;
     private int matrik;
+    private int kills;
 
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = MatrixPlayer.class)
     private MatrixPlayer matrixPlayer;
 
     public PlayerStats(float exp,
+                       int kills,
                        int foodLevel,
                        double loc_x,
                        double loc_y,
@@ -60,6 +62,7 @@ public class PlayerStats {
                        int matrik,
                        MatrixPlayer matrixPlayer) {
         this.exp = exp;
+        this.kills = kills;
         this.foodLevel = foodLevel;
         this.loc_x = loc_x;
         this.loc_y = loc_y;
@@ -138,34 +141,6 @@ public class PlayerStats {
         return timeStamp;
     }
 
-    public JSONObject toJSON() {
-        JSONObject jo = new JSONObject();
-        jo.put("exp", getExp());
-        jo.put("food_level", getFoodLevel());
-        JSONObject loc = new JSONObject();
-        loc.put("x", getLoc_x());
-        loc.put("y", getLoc_y());
-        loc.put("z", getLoc_z());
-        jo.put("location", loc);
-        jo.put("money", getMoney());
-        jo.put("health", getHealth());
-        jo.put("gamemode", getGamemode());
-        jo.put("last_damage_cause", getLastDamageCause());
-        jo.put("remaining_air", getRemainingAir());
-        jo.put("timestamp", getTimeStamp().toString());
-        jo.put("guildRankName", getGuildRankName());
-        jo.put("threatTier", getThreatTier());
-        jo.put("sfTitle", getSfTitle());
-        jo.put("mcMMO_Power", getMcmmoPower());
-        jo.put("mageRank", getMageRank());
-        jo.put("skillClass", getSkillClass());
-        jo.put("skillLevel", getSkillLevel());
-        jo.put("element", getElement());
-        jo.put("matrik", getMatrik());
-
-        return jo;
-    }
-
 
     public int getThreatTier() {
         return threatTier;
@@ -237,5 +212,13 @@ public class PlayerStats {
 
     public void setElement(String element) {
         this.element = element;
+    }
+
+    public int getKills() {
+        return kills;
+    }
+
+    public void setKills(int kills) {
+        this.kills = kills;
     }
 }
