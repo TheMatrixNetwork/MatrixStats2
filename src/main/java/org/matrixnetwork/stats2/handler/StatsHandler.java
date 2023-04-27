@@ -3,6 +3,7 @@ package org.matrixnetwork.stats2.handler;
 import com.gmail.mrphpfan.matrixcombatlevel.MatrixCombatLevel;
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -76,7 +77,7 @@ public class StatsHandler {
                                 p.getLastDamageCause() == null ? null : p.getLastDamageCause().getCause().toString(),
                                 p.getRemainingAir(),
                                 LocalDateTime.now(),
-                                guildRank,
+                                ChatColor.stripColor(guildRank),
                                 threatTier,
                                 sfTitle,
                                 mcmmoPower,
