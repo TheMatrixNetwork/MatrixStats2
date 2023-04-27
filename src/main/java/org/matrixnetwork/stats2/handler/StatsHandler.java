@@ -1,6 +1,6 @@
 package org.matrixnetwork.stats2.handler;
 
-import com.gmail.mrphpfan.mccombatlevel.McCombatLevel;
+import com.gmail.mrphpfan.matrixcombatlevel.MatrixCombatLevel;
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
 import org.bukkit.entity.Player;
@@ -15,7 +15,7 @@ import org.matrixnetwork.stats2.manager.DataManager;
 
 import java.time.LocalDateTime;
 
-import static com.gmail.mrphpfan.mccombatlevel.calculator.JavaScriptCalculator.*;
+import static com.gmail.mrphpfan.matrixcombatlevel.calculator.JavaScriptCalculator.*;
 import static com.projectkorra.projectkorra.BendingPlayer.getBendingPlayer;
 
 public class StatsHandler {
@@ -64,7 +64,7 @@ public class StatsHandler {
                             element = e.getColor() + e.getName() + ", ";
                         }
                         element = bPlayer.getElements().size() == 0 ? "None" : element;
-                        int matrik = McCombatLevel.inst().getPlayerLevels().get(p.getName());
+                        int matrik = MatrixCombatLevel.inst().getPlayerLevels().get(p.getName());
                         PlayerStats data = new PlayerStats(p.getExp(),
                                 p.getFoodLevel(),
                                 p.getLocation().getX(),
