@@ -1,56 +1,56 @@
 
-<div class="w-full flex justify-around items-center">
+<div class="w-full flex justify-between items-center">
   <div class="w-fit flex space-x-14 justify-between items-center">
     <div>
       <div class="flex justify-between items-center">
-        <img ngSrc="assets/img/icons8-minecraft-schwert-48.png" width="40" height="40">
+        <img class="mr-2" ngSrc="assets/img/icons8-minecraft-schwert-48.png" width="40" height="40">
         <p style="font-size: 35px;" class="ml-4">--</p>
       </div>
       <div class="flex justify-between items-center mt-4">
-        <img ngSrc="assets/img/money.png" class="mr-5" width="40" height="40">
+        <img class="mr-2" ngSrc="assets/img/money.png" class="mr-5" width="40" height="40">
         <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.money}}$</p>
       </div>
       <div class="flex justify-between items-center mt-4">
-        <img ngSrc="assets/img/minecraft-food.png" width="40" height="40">
+        <img class="mr-2" ngSrc="assets/img/minecraft-food.png" width="40" height="40">
         <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.foodLevel}}</p>
       </div>
       <div class="flex justify-between items-center mt-4">
-        <img ngSrc="assets/img/experience-orb.webp" width="40" height="40">
+        <img class="mr-2" ngSrc="assets/img/experience-orb.webp" width="40" height="40">
         <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.exp}}</p>
       </div>
     </div>
     <div    class="inline-block h-[320px] min-h-[1em] w-0.5 self-stretch bg-black opacity-100"></div>
     <div>
       <div class="flex justify-between items-center">
-        <img ngSrc="assets/img/Slimeball_JE2_BE2.webp" width="40" height="40">
+        <img class="mr-2" ngSrc="assets/img/Slimeball_JE2_BE2.webp" width="40" height="40">
         <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.sfTitle}}</p>
       </div>
       <div class="flex justify-between items-center mt-4">
-        <img ngSrc="assets/img/minecraft-diamond.webp" width="40" height="40">
+        <img class="mr-2" ngSrc="assets/img/minecraft-diamond.webp" width="40" height="40">
         <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.threatTier}}</p>
       </div>
       <div class="flex justify-between items-center mt-4">
-        <img ngSrc="assets/img/crossed-swords.png" width="40" height="40">
+        <img class="mr-2" ngSrc="assets/img/crossed-swords.png" width="40" height="40">
         <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.guildRankName}}</p>
       </div>
       <div class="flex justify-between items-center mt-4">
-        <img ngSrc="assets/img/medal.png" width="50" height="50">
+        <img class="mr-2" ngSrc="assets/img/medal.png" width="50" height="50">
         <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.threatTier}}</p>
       </div>
     </div>
     <div class="inline-block h-[320px] min-h-[1em] w-0.5 self-stretch bg-black opacity-100"></div>
     <div>
       <div class="flex justify-between items-center">
-        <img ngSrc="assets/img/mcmmo.jpeg" width="40" height="40">
+        <img class="mr-2" ngSrc="assets/img/mcmmo.jpeg" width="40" height="40">
         <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.mcmmoPower}}</p>
       </div>
       <div class="flex justify-between items-center mt-4">
-        <img ngSrc="assets/img/potion.webp" width="40" height="40">
+        <img class="mr-2" ngSrc="assets/img/potion.webp" width="40" height="40">
         <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.mageRank}}</p>
       </div>
       <div class="flex justify-between items-center mt-4">
-        <img ngSrc="assets/img/skills.png" width="60" height="50">
-        <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.skillClass}} ({{latestPlayerStats.skillLevel}})</p>
+        <img class="mr-2" ngSrc="assets/img/skills.png" width="60" height="50">
+        <p style="font-size: 35px;" class="ml-4">{{latestPlayerStats.skillClass}}</p>
       </div>
       <div class="flex justify-between items-center mt-4">
         <p style="font-size: 35px;" class="ml-4 text-white" >.</p>
@@ -61,8 +61,8 @@
     <h1 style="font-size: 30px">S1mple133</h1>
     <div id="skinContainer"></div>
     <div class="flex justify-between items-center mt-4">
-      <img *ngFor="let i of heartRows" ngSrc="assets/img/minecraft-heart.webp" width="35" height="35">
-      <!--<img *ngFor="let i of [1,2,3]" ngSrc="assets/img/minecraft-heart-black.png" width="35" height="35" >-->
+      <img class="mr-2" *ngFor="let i of heartRows" ngSrc="assets/img/minecraft-heart.webp" width="35" height="35">
+      <!--<img class="mr-2" *ngFor="let i of [1,2,3]" ngSrc="assets/img/minecraft-heart-black.png" width="35" height="35" >-->
     </div>
   </div>
 </div>
