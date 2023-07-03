@@ -87,7 +87,7 @@ dependencies {
 
     testImplementation group: 'org.slf4j', name: 'slf4j-jdk14', version: '2.0.0-alpha0'
 
-    implementation("org.hibernate:hibernate-core:5.3.23.Final")
+    implementation("org.hibernate:hibernate-core:6.2.6.Final")
     implementation("mysql:mysql-connector-java:8.0.27")
     implementation("com.google.inject:guice:4.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.10.0")
